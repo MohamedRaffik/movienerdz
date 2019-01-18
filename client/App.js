@@ -1,11 +1,12 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
+import NavigationBar from './components/containers/NavigationBar';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="title">Basic Webpack with React</h1>
+        <NavigationBar />
       </div>
     );
   }
