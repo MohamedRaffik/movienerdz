@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from './components/containers/NavigationBar';
+import MovieSwipe from './components/presentational/MovieSwipe';
 import './App.css';
 
 class App extends Component {
@@ -7,6 +8,7 @@ class App extends Component {
     return (
       <div>
         <NavigationBar />
+        <MovieSwipe />
       </div>
     );
   }
