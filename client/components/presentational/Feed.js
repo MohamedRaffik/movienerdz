@@ -1,35 +1,22 @@
 import React from 'react';
 import FeedItem from './FeedItem';
 
-
-const feedStyling = {
-	"display": "inline-block",
-	"margin": "20px"
-
-
-
-}
-
-class Feed extends React.Component{
-	constructor(props){
-		super(props);
-
+const Feed = (props) => {
+	const feedStyling = {
+		"display": "inline-block",
+		"margin": "20px"
 	}
-	render(){
-		console.log(this.props.results);
-		var items = this.props.results.map((row) =>
-			
-			<FeedItem data={row}/>
-		)
-		console.log(items);
-		return(
-			<div className="feed" style={feedStyling}>
+
+	const items = props.results.map((row) =>
+		<FeedItem data={row}/>
+	);
+
+	return (
+		<div className="feed" style={feedStyling}>
 			<h2>results:</h2>
 			{items}	
-			</div>
-
-		);
-	}
+		</div>
+	);
 }
 
 export default Feed;
