@@ -13,14 +13,12 @@ class NavigationBar extends Component {
   }
 
   render() {
-    const GenreItems = [];
-    GENRE_OPTIONS.forEach((element) => {
-      GenreItems.push({ key: element, text: element, value: element });
+    const GenreItems = GENRE_OPTIONS.map((element) => {
+      return { key: element, text: element, value: element };
     });
 
-    const FilterItems = []
-    FILTER_OPTIONS.forEach((element) => {
-      FilterItems.push({ key: element, text: element, value: element });
+    const FilterItems = FILTER_OPTIONS.map((element) => {
+      return { key: element, text: element, value: element };
     });
   
     return (
