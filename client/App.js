@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import NavigationBar from './components/containers/NavigationBar';
 import './App.css';
 import Feed from './components/presentational/Feed';
-import FeedItem from './components/presentational/FeedItem';
-
-
-
-const store = createStore(counter);
 
 class App extends Component {
   render() {
