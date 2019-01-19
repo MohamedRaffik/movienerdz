@@ -5,7 +5,14 @@ import {LOGIN, SIGNUP, LOGOUT, ADDFAVORITE, REMOVEFAVORITE, ADDWATCHLATER, REMOV
 ///trending/{media_type}/{time_window}
 
 const initialState = {
-  
+  feed: [],
+  isGuest: false,
+  userName: "johnDoe23"
+  search: {
+    text: "search text",
+    genres: []
+  },
+  filter: ""
 };
 
 // create reducer function
