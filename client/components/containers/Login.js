@@ -4,7 +4,7 @@ import {} from 'semantic-ui-react';
 class Login extends Component {
   render() {
     return (
-      
+      <div></div>
     );
   }
 }
