@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const UserModel = require('./User');
-const DATABASE_URL = require('../config').DATABASE_URL;
-const db = new Sequelize(DATABASE_URL);
+require('dotenv').config();
+const db = new Sequelize(process.env.DATABASE_URL);
 
 const User = UserModel(db, Sequelize);
 
