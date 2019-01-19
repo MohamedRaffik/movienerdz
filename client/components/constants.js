@@ -1,9 +1,9 @@
 
 export const FILTER_OPTIONS = [
-  'Trending Movies',
-  'Upcoming Movies',
-  'Popular Movies',
-  'Top Rated Movies'
+  'Show Trending Movies',
+  'Show Upcoming Movies',
+  'Show Popular Movies',
+  'Show Top Rated Movies'
 ];
 export const GENRE_OPTIONS = [
   'Action',

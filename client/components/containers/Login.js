@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import {} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 class Login extends Component {
   render() {
     return (
-      <div></div>
+      <Button.Group>
+        <Button>Log In</Button>
+        <Button.Or />
+        <Button>Sign Up</Button>
+      </Button.Group>
     );
   }
 }
