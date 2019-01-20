@@ -33,6 +33,7 @@
     "express": "^4.16.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-ratio": "^0.1.5",
     "semantic-ui-react": "^0.84.0",
     "style-loader": "^0.23.1"
   }
