@@ -6,7 +6,9 @@ export const FILTER_ACTIONS = {
   POPULAR: 'POPULAR',
   TOP_RATED: 'TOP_RATED',
   LATEST: 'LATEST',
-  SEARCH: 'SEARCH'
+  SEARCH: 'SEARCH',
+  WATCH_LATER: 'WATCH_LATER',
+  FAVORITES: 'FAVORITES'
 };
 
 export const updateFeed = (feed_type, data) => {

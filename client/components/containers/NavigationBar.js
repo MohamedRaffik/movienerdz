@@ -7,7 +7,7 @@ class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
+      keyword: '',
       genre: [],
       filter: FILTER_OPTIONS[0]
     };
@@ -49,7 +49,7 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Input
-                onChange={(event, element) => this.setState({ title: element.value })}
+                onChange={(event, element) => this.setState({ keyword: element.value })}
                 placeholder="Enter Keyword"
               />
             </Menu.Item>
