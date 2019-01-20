@@ -7,8 +7,8 @@ const Feed = (props) => {
 		"margin": "20px"
 	}
 
-	const items = props.results.map((row) =>
-		<FeedItem data={row}/>
+	const items = props.results.map((row, index) =>
+		<FeedItem key={index} data={row}/>
 	);
 
 	return (
