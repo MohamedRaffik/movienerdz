@@ -62,38 +62,40 @@ class MovieSwipe extends Component {
 
 
     render() {
+
+        const style = {
+            height: "50%"
+        }
         return (
             <div>
 
-                <div className="slideshow-container">
+                <div className="slideshow-container" height="50%">
 
 
-                    <div className="mySlides fade">
+                    <div className="mySlides fade" style={style}>
                         <div className="numbertext">1 / 3</div>
-                        <img src="client\img\header.jpg" width="800px"></img>
-                        <div className="text">Caption Text</div>
-                    </div>
+                        <img className="bg" src="client\img\header.jpg" ></img>
+                        <div className="text">Movie 1</div>
 
-                    <div className="mySlides fade">
-                        <div className="numbertext">2 / 3</div>
-                        <img src="client\img\ny1.jpg" width="800px"></img>
-                        <div className="text">Caption Two</div>
-                    </div>
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-left.png" className="prev" onClick={this.backSlides} />
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-right.png" className="next" onClick={this.showSlides} />                    </div>
 
-                    <div className="mySlides fade">
-                        <div className="numbertext">3 / 3</div>
-                        <img src="client\img\blue.jpg" width="800px"></img>
-                        <div className="text">Caption Three</div>
-                    </div>
-                    <button className="prev" onClick={this.backSlides}>{"<"} </button>
-                    <button className="next" onClick={this.showSlides}>></button>
-                    <button onClick={this.showSlides}>Next</button>
 
+                    <div className="mySlides fade" style={style}>
+                        <div className="numbertext">2 / 2</div>
+                        <img className="bg" src="client\img\ny1.jpg" ></img>
+                        <div className="text">Movie 2</div>
+
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-left.png" className="prev" onClick={this.backSlides} />
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-right.png" className="next" onClick={this.showSlides} />
+
+                    </div>
 
                 </div>
-                <br></br>
 
             </div>
+
+
         );
     }
 
