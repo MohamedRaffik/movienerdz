@@ -1,4 +1,3 @@
-
 export const FILTER_OPTIONS = [
   'Show Trending Movies',
   'Show Upcoming Movies',

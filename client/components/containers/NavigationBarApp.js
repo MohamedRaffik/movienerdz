@@ -5,12 +5,7 @@ import NavigationBar from './NavigationBar';
 const mapStateToProps = (state, ownProps) => {
   return {
     filter: state.filter,
-    trending: state.trending,
-    upcoming: state.upcoming,
-    popular: state.popular,
-    top_rated: state.top_rated,
-    latest: state.latest,
-    search: state.search,
+    search: state.search
   };
 };
 

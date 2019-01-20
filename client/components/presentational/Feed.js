@@ -1,6 +1,7 @@
 import React from 'react';
 import FeedItem from './FeedItem';
 import { FILTER_ACTIONS } from '../../actions';
+import { queryResults } from '../constants';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 
@@ -25,7 +26,7 @@ const Feed = (props) => {
 		case SEARCH:
 			results = props.search;
 		default:
-			results = [];
+			results = queryResults;
 	}
 
 	const items = results.map((row, index) =>

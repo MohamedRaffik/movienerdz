@@ -34,21 +34,19 @@ export const removeWatchLater = (data) => {
   }
 }
 
-export const loggedIn = (username, password, watch_later, favorites) => {
+export const loggedIn = (username, watch_later, favorites) => {
 	return {
     type: LOGGED_IN,
     username,
-    password,
     watch_later,
     favorites
 	}
 }
 
-export const signedUp = (username, password) => {
+export const signedUp = (username) => {
 	return {
 		type: SIGNED_UP,
 		username,
-		password
 	}
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown, Sticky, Input, Button, Icon } from 'semantic-ui-react';
 import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
-import Login from './Login';
+import LoginApp from './LoginApp';
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class NavigationBar extends Component {
   }
 
   LimitGenres = (event, element) => {
-    (element.value.length > 3) ? element.value.length = 3 : null;
+    if (element.value.length > 3) element.value.length = 3;
     this.setState({ genre: element.value });
   }
 
@@ -66,7 +66,7 @@ class NavigationBar extends Component {
               </Button>
             </Menu.Item>
             <Menu.Item>
-              <Login />
+              <LoginApp />
             </Menu.Item>
           </Menu.Item>
         </Menu>

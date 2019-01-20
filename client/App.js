@@ -1,16 +1,23 @@
-import React, { Component } from 'react';
-import { NavigationBarApp, FeedApp } from './components';
-import { queryResults } from './components/constants';
+import { connect } from 'react-redux';
+import { updateFeed } from './actions';
+import AppContainer from './AppContainer';
 
-class App extends Component {
-  render() {  	
-    return (
-      <div>
-        <NavigationBarApp />
-        <FeedApp />
-      </div>
-    );
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trending: state.trending,      
+    upcoming: state.upcoming,      
+    popular: state.popular,       
+    top_rated: state.top_rated,     
+    latest: state.latest,
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onUpdateFeed: (feed_type, data) => dispatch(updateFeed(feed_type, data)) 
+  }
+}
+
+const App = connect(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 export default App;
