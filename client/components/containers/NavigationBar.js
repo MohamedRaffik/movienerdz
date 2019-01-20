@@ -13,6 +13,11 @@ class NavigationBar extends Component {
     };
   }
 
+  LimitGenres = (event, element) => {
+    (element.value.length > 3) ? element.value.length = 3 : null;
+    this.setState({ genre: element.value });
+  }
+
   render() {
     const GenreItems = GENRE_OPTIONS.map((element) => {
       return { key: element, text: element, value: element };
@@ -38,12 +43,13 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Dropdown 
-                text="Genres" 
+                text="Genres"
+                value={this.state.genre} 
                 search={true} 
                 selection={true} 
                 clearable={true}
                 multiple={true}
-                onChange={(event, element) => this.setState({ genre: element.value })}
+                onChange={this.LimitGenres}
                 options={GenreItems}>
               </Dropdown>
             </Menu.Item>

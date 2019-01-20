@@ -3,20 +3,20 @@ import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
 import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
 
-const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 const initialState = {
-  loggedIn: false,   // Account
-  name: '',          // Account
-  watch_later: [],   // Account
-  favorites: [],     // Account
-  trending: [],      // Feed
-  upcoming: [],      // Feed
-  popular: [],       // Feed
-  top_rated: [],     // Feed
-  latest: [],        // Feed
-  search: [],        // Feed
-  filter: TRENDING   // Feed
+  loggedIn: false,   
+  name: '',          
+  watch_later: [],   
+  favorites: [],    
+  trending: [],      
+  upcoming: [],      
+  popular: [],       
+  top_rated: [],     
+  latest: [],        
+  search: [],        
+  filter: TRENDING   
 };
 
 export default (state = initialState, action) => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavigationBarApp, Feed } from './components';
+import { NavigationBarApp, FeedApp } from './components';
 import { queryResults } from './components/constants';
 
 class App extends Component {
@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div>
         <NavigationBarApp />
-        <Feed results = {queryResults}/>
+        <FeedApp />
       </div>
     );
   }
