@@ -52,45 +52,44 @@ class MovieSwipe extends Component {
         setInterval(
             function () {
                 this.showSlides();
-                console.log(this.state.slideIndex)
             }
                 .bind(this),
             3000
         );
     }
 
-
-
     render() {
 
         const style = {
-            height: "50%"
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: "url(https://image.tmdb.org/t/p/w1280/5A2bMlLfJrAfX9bqAibOL2gCruF.jpg)"
+        }
+
+        const style2 = {
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: "url(https://image.tmdb.org/t/p/w1280/hMANgfPHR1tRObNp2oPiOi9mMlz.jpg)"
         }
         return (
             <div>
 
-                <div className="slideshow-container" height="50%">
-
-
+                <div className="slideshow-container" onClick={() => console.log(this.state.slideIndex)}>
                     <div className="mySlides fade" style={style}>
-                        <div className="numbertext">1 / 3</div>
-                        <img className="bg" src="client\img\header.jpg" ></img>
                         <div className="text">Movie 1</div>
-
-                        <img src="https://img.icons8.com/nolan/64/000000/chevron-left.png" className="prev" onClick={this.backSlides} />
-                        <img src="https://img.icons8.com/nolan/64/000000/chevron-right.png" className="next" onClick={this.showSlides} />                    </div>
-
-
-                    <div className="mySlides fade" style={style}>
-                        <div className="numbertext">2 / 2</div>
-                        <img className="bg" src="client\img\ny1.jpg" ></img>
-                        <div className="text">Movie 2</div>
-
-                        <img src="https://img.icons8.com/nolan/64/000000/chevron-left.png" className="prev" onClick={this.backSlides} />
-                        <img src="https://img.icons8.com/nolan/64/000000/chevron-right.png" className="next" onClick={this.showSlides} />
-
                     </div>
 
+                    <div className="mySlides fade" style={style2}>
+                        <div className="text">Movie 2</div>
+
+
+                    </div>
+                    <div className="slideArrow">
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-left.png" className="prev" onClick={this.backSlides} />
+                        <img src="https://img.icons8.com/nolan/64/000000/chevron-right.png" className="next" onClick={this.showSlides} />
+                    </div>
                 </div>
 
             </div>

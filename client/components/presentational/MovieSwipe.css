@@ -1,18 +1,21 @@
 * {box-sizing:border-box}
 
-
-.slideshow-container{
-  height: 50%;
-}
 /* Hide the images by default */
 .mySlides {
   display: grid;
   position: absolute;
+  height: 55%;
+  width: 100%;
+  padding: 16px;
 }
-.mySlides2 {
-  display: grid;
-  position: relative;
-}
+.slideArrow {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    padding: 16px;
+  }
+
 .bg {
   height: 100%;
   width: 100%;
