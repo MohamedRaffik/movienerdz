@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavigationBarApp, FeedApp } from './components';
+import { NavigationBarApp, FeedApp, MovieSwipeApp } from './components';
 
 class AppContainer extends Component {
 
@@ -11,6 +11,7 @@ class AppContainer extends Component {
     return (
       <div>
         <NavigationBarApp />
+        <MovieSwipeApp />
         <FeedApp />
       </div>
     );
