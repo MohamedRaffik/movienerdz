@@ -12,52 +12,25 @@ Router.get('/trending', (req, res) => {
   .catch(error => res.status(500).send('Request Failed'));
 });
 
-Router.get('/upcoming/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
-  .then(response => {
-    res.send(response.data.results);
-  })
-  .catch(error => res.status(500).send('Request Failed'));
-});
-
-Router.get('/popular/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
-  .then(response => {
-    res.send(response.data.results);
-  })
-  .catch(error => res.status(500).send('Request Failed'));
-});
-
-Router.get('/top_rated/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
-  .then(response => {
-    res.send(response.data.results);
-  })
-  .catch(error => res.status(500).send('Request Failed'));
-});
-
-Router.get('/latest/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
-  .then(response => {
-    res.send(response.data.results);
-  })
-  .catch(error => res.status(500).send('Request Failed'));
-});
-
-Router.get('/playing_now/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
-  .then(response => {
-    res.send(response.data.results);
-  })
-  .catch(error => res.status(500).send('Request Failed'));
-});
-
 Router.get('/genres', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/list?api_key=${API_KEY}&language=en-US`)
+  axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
   .then(response => {
-    res.send(response.data.results);
+    res.send(response.data.genres);
   })
   .catch(error => res.status(500).send('Request Failed'));
 })
+
+// route for: upcoming, top_rated, popular, now_playing, latest
+Router.get('/:feed/:page', (req, res) => {
+  axios.get(`https://api.themoviedb.org/3/movie/${req.params.feed}?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
+  .then(response => {
+    res.json({
+      data: response.data.results,
+      total_pages: response.data.total_pages,
+      page: response.data.page
+    }); 
+  })
+  .catch(error => res.status(500).send('Request Failed'));
+});
 
 module.exports = Router;
