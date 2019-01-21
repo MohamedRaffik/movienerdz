@@ -30,12 +30,16 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "bcrypt": "^3.0.3",
     "concurrently": "^4.1.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "pg": "^7.8.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "semantic-ui-react": "^0.84.0"
+    "semantic-ui-react": "^0.84.0",
+    "sequelize": "^4.42.0"
   }
 }

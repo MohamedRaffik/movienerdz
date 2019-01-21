@@ -1,43 +1,23 @@
-import React, { Component } from 'react';
-import NavigationBar from './components/containers/NavigationBar';
-import './App.css';
-import Feed from './components/presentational/Feed';
-import FeedItem from './components/presentational/FeedItem';
+import { connect } from 'react-redux';
+import { updateFeed } from './actions';
+import AppContainer from './AppContainer';
 
-
-
-const store = createStore(counter);
-
-class App extends Component {
-  render() {
-  	var queryResults = [
-  	{
-  		"title": "Spiderman: Into the Spiderverse",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 9, 2019",
-
-  	},
-  	{
-  		"title": "Avengers: Infinity War",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 10, 2019",
-  		
-  	},
-  	{
-  		"title": "Bumblebee",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 11, 2019",
-  		
-  	}];
-  	console.log(queryResults);
-    return (
-      <div>
-        <NavigationBar />
-        <Feed results = {queryResults}/>
-        
-      </div>
-    );
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trending: state.trending,      
+    upcoming: state.upcoming,      
+    popular: state.popular,       
+    top_rated: state.top_rated,     
+    latest: state.latest,
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onUpdateFeed: (feed_type, data) => dispatch(updateFeed(feed_type, data)) 
+  }
+}
+
+const App = connect(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 export default App;
