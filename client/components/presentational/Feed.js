@@ -2,7 +2,7 @@ import React from 'react';
 import FeedItem from './FeedItem';
 import { FILTER_ACTIONS } from '../../actions';
 import { queryResults } from '../constants';
-const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 
 const Feed = (props) => {
@@ -12,23 +12,13 @@ const Feed = (props) => {
 	}
 
 	let results = [];
-	switch(props.filter) {
-		case TRENDING:
-			results = props.trending;
-		case UPCOMING:
-			results = props.upcoming;
-		case POPULAR:
-			results = props.popular;
-		case TOP_RATED:
-			results = props.top_rated;
-		case LATEST:
-			results = props.latest;
-		case SEARCH:
-			results = props.search;
-		default:
-			results = queryResults;
-	}
-
+	const filter = props.filter;
+	if (filter === TRENDING) results = props.trending;
+	else if (filter === UPCOMING) results = props.upcoming;
+	else if (filter === POPULAR) results = props.popular;
+	else if (filter === TOP_RATED) results = props.top_rated;
+	else if (filter === PLAYING_NOW) restults = props.playing_now;
+	
 	const items = results.map((row, index) =>
 		<FeedItem key={index} data={row}/>
 	);

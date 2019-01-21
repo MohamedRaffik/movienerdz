@@ -3,7 +3,11 @@ export const FILTER_OPTIONS = [
   'Show Upcoming Movies',
   'Show Popular Movies',
   'Show Top Rated Movies',
-  'Show Latest Movies'
+  'Show Playing Now Movies'
+];
+
+export const GENRE_OPTIONS = [
+  "Action"
 ];
 
 export const queryResults = [
