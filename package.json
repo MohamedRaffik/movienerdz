@@ -30,6 +30,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.3",
     "concurrently": "^4.1.0",
     "dotenv": "^6.2.0",
