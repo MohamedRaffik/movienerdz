@@ -2,7 +2,7 @@ import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
 import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
 
-const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 const initialState = {
 
@@ -14,7 +14,7 @@ const initialState = {
   upcoming: [],      
   popular: [],       
   top_rated: [],     
-  latest: [],        
+  playing_now: [],  
   search: [],        
   filter: TRENDING   
 
@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
       else if (action.feed_type === UPCOMING) newState.upcoming = action.data
       else if (action.feed_type === POPULAR) newState.popular = action.data
       else if (action.feed_type === TOP_RATED) newState.top_rated = action.data
-      else if (action.feed_type === LATEST) newState.latest = action.data;
+      else if (action.feed_type === PLAYING_NOW) newState.playing_now = action.data;
       else if (action.feed_type === SEARCH) newState.search = action.data;
       return newState;
     case CHANGE_FILTER:
