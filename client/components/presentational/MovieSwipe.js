@@ -53,6 +53,7 @@ class MovieSwipe extends Component {
         this.state = {
             index: 0
         };
+        console.log(props);
     }
 
     componentDidMount() {
