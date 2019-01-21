@@ -8,7 +8,6 @@ const mapStateToProps = (state, ownProps) => {
     upcoming: state.upcoming,      
     popular: state.popular,       
     top_rated: state.top_rated,     
-    latest: state.latest,
   }
 }
 
