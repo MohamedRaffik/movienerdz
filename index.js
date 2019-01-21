@@ -34,8 +34,8 @@ app.use(express.json());
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, `client/${PATH_DIR}`)));
 
- app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, `client/${PATH_DIR}/index.html`))
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, `client/${PATH_DIR}/index.html`))
 });
 
 app.listen(3000, () => {
