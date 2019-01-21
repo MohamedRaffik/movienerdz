@@ -11,6 +11,7 @@ export const FILTER_ACTIONS = {
   FAVORITES: 'FAVORITES'
 };
 
+
 export const updateFeed = (feed_type, data) => {
   return {
     type: UPDATE_FEED,
