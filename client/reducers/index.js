@@ -6,6 +6,7 @@ import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, LATEST, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 const initialState = {
+
   loggedIn: false,   
   name: '',          
   watch_later: [],   
@@ -17,6 +18,7 @@ const initialState = {
   latest: [],        
   search: [],        
   filter: TRENDING   
+
 };
 
 export default (state = initialState, action) => {
