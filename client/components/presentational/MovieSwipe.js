@@ -75,6 +75,7 @@ class MovieSwipe extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="carousel">
                 <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
