@@ -3,7 +3,7 @@ import MovieSwipe from './MovieSwipe';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    now_playing: state.now_playing
+    playing_now: state.playing_now
   }
 }
 
