@@ -1,6 +1,6 @@
 import React from 'react';
 import FeedItem from './FeedItem';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
@@ -27,12 +27,15 @@ const Feed = (props) => {
 	} 
 
 	return (
-		<Grid relaxed={true} padded={true}>
-			<Grid.Row style={{"margin-left": "2em"}}>
-				<h2>Results:</h2>
-			</Grid.Row>
-			{items}
-		</Grid>
+		<Segment inverted={true} style={{"margin": "0"}}>
+			<Grid relaxed={true} padded={true}>
+				<Grid.Row style={{"margin-left": "2em"}}>
+					<h2>Results:</h2>
+				</Grid.Row>
+				{items}
+			</Grid>
+		</Segment>
+		
 	);
 }
 

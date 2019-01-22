@@ -20,7 +20,7 @@ const ImageSlide = (props) => {
         backgroundPosition: 'center'
     };
 
-    const caption = props.data.overview;
+    const caption = props.data.release_date;
     const title = props.data.name ? props.data.name : props.data.title;
     const rating = props.data.vote_average;
 
