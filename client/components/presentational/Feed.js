@@ -13,7 +13,7 @@ const Feed = (props) => {
 	else if (filter === POPULAR) results = props.popular;
 	else if (filter === TOP_RATED) results = props.top_rated;
 	else if (filter === PLAYING_NOW) results = props.playing_now;
-	
+
 	const items = [];
 	for (let i = 0; i < results.length; i+=4) {
 		items.push(

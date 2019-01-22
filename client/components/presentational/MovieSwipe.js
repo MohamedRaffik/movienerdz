@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
+import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 import './MovieSwipe.css';
 
-const imgUrls = [
-    "https://image.tmdb.org/t/p/w1280/5A2bMlLfJrAfX9bqAibOL2gCruF.jpg",
-    "https://image.tmdb.org/t/p/w1280/hMANgfPHR1tRObNp2oPiOi9mMlz.jpg",
-    "https://cmeimg-a.akamaihd.net/640/clsd/getty/c64f76dc20c246ca88ee180fe4b4b781",
-    "https://lh3.googleusercontent.com/oxPeODS2m6rYIVbhcQChRtOWEYeGDwbeeeB1cDU2o_WYAVPU61VIgx-_6BAh5gSL8Sw=h900",
-    "https://i0.wp.com/www.universodegatos.com/wp-content/uploads/2017/04/fivfelv7.jpg?resize=582%2C328",
-    "https://i.pinimg.com/736x/07/c3/45/07c345d0eca11d0bc97c894751ba1b46.jpg",
-    "https://ehealthforum.com/health/images/avatars/11699147425707699031013.jpeg"
-];
 
 const Arrow = ({ direction, clickFunction, glyph }) => (
     <div
@@ -20,28 +12,28 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
 );
 
 
-const ImageSlide = ({ url, onClick }) => {
+const ImageSlide = (props) => {
+    console.log(props);
     const styles = {
-        backgroundImage: `url(${url})`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/w1280${props.data.backdrop_path}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
     };
 
-    const title = "Movie";
-    const caption = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ";
-    const rating = "8.0";
+    const caption = props.data.overview;
+    const title = props.data.name ? props.data.name : props.data.title;
+    const rating = props.data.vote_average;
+
     return (
-        <div className="image-slide fade" style={styles} onClick={onClick}>
+        <div className="image-slide fade" style={styles}>
             <div className="movie-text">
                 <div id="title">{title}</div>
-
                 <div id="rating">
                     <img src="https://img.icons8.com/nolan/64/000000/star.png" id="star" />
                     {rating}
                 </div>
                 <br></br>
                 <div className="movie-caption">{caption}</div>
-
             </div>
         </div>
     );
@@ -60,24 +52,35 @@ class MovieSwipe extends Component {
     }
 
     PreviousSlide = () => {
-        const index = this.state.index === 0 ? imgUrls.length - 1 : this.state.index - 1;
+        const playing_now = this.props.playing_now.data;
+        const index = this.state.index === 0 ? playing_now.length - 1 : this.state.index - 1;
         this.setState({ index: index });
     }
 
     NextSlide = () => {
-        const index = this.state.index === imgUrls.length - 1 ? 0 : this.state.index + 1;
+        const playing_now = this.props.playing_now.data;
+        const index = this.state.index === playing_now.length - 1 ? 0 : this.state.index + 1;
         this.setState({ index: index });
     }
 
-    onClick = () => {
-        console.log(this.state.index)
-    }
-
     render() {
+        const { index } = this.state;
+        const playing_now = this.props.playing_now.data;
         return (
+            !playing_now ?
+            <Segment>
+                <Dimmer active>
+                    <Loader size='large'>Loading</Loader>
+                </Dimmer>
+                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+            </Segment>
+      
+            :
             <div className="carousel">
                 <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
-                <ImageSlide url={imgUrls[this.state.index]} onClick={this.onClick} />
+                <ImageSlide data={playing_now[index]} />
                 <Arrow direction="right" clickFunction={this.NextSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-right.png" />
             </div>
         );

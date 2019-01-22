@@ -11,10 +11,10 @@ const initialState = {
   watch_later: [],   
   favorites: [],    
   trending: [],      
-  upcoming: [],      
-  popular: [],       
-  top_rated: [],     
-  playing_now: [],  
+  upcoming: {},      
+  popular: {},       
+  top_rated: {},     
+  playing_now: {},  
   search: [],        
   filter: TRENDING   
 };
