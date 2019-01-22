@@ -12,11 +12,11 @@ class AppContainer extends Component {
   componentDidMount() {
     const { onUpdateFeed } = this.props;
     const feeds = [
+      [ PLAYING_NOW, 'now_playing' ],
+      [ TRENDING, 'trending' ],
       [ UPCOMING, 'upcoming' ],
       [ TOP_RATED, 'top_rated' ],
       [ POPULAR, 'popular' ],
-      [ PLAYING_NOW, 'now_playing' ],
-      [ TRENDING, 'trending' ],
     ];
 
     for (let i in feeds) {
