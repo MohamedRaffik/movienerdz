@@ -10,7 +10,9 @@ module.exports = (db, Sequelize) => {
     hooks: {
       beforeCreate: (user) => {
         return bcrypt.hash(user.password, 10)
-          .then(hash => { user.password = hash; })
+          .then(hash => { 
+            user.password = hash;
+           })
           .catch(err => console.error(err));
       }
     },

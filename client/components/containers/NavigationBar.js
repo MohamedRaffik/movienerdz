@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Dropdown, Sticky, Input, Button, Icon } from 'semantic-ui-react';
 import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
-
+import axios from 'axios';
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +12,7 @@ class NavigationBar extends Component {
       filter: FILTER_OPTIONS[0]
     };
   }
+
 
   LimitGenres = (event, element) => {
     if (element.value.length > 3) element.value.length = 3;
