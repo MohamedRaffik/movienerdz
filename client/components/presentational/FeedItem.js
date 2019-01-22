@@ -1,5 +1,6 @@
 import {Card, Image} from 'semantic-ui-react';
 import React from 'react';
+import MovieModal from './MovieModal'
 
 const FeedItem = (props) => {
 	const style = {
@@ -16,6 +17,7 @@ const FeedItem = (props) => {
 				<Card.Meta>
 					<span className="movie">{release_date}</span>
 				</Card.Meta>
+				<MovieModal/>
 			</Card.Content>
 		</Card>
 	);
