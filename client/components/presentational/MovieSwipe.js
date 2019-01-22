@@ -13,7 +13,6 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
 
 
 const ImageSlide = (props) => {
-    console.log(props);
     const styles = {
         backgroundImage: `url("https://image.tmdb.org/t/p/w1280${props.data.backdrop_path}")`,
         backgroundSize: 'cover',

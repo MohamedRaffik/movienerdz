@@ -29,13 +29,12 @@ const Feed = (props) => {
 	return (
 		<Segment inverted={true} style={{"margin": "0"}}>
 			<Grid relaxed={true} padded={true}>
-				<Grid.Row style={{"margin-left": "2em"}}>
+				<Grid.Row style={{"marginLeft": "2em"}}>
 					<h2>Results:</h2>
 				</Grid.Row>
 				{items}
 			</Grid>
 		</Segment>
-		
 	);
 }
 
