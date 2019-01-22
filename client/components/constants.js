@@ -1,3 +1,12 @@
+export const movieDbURL = "https://api.themoviedb.org/3";
+export const trendingWeek = "/trending/all/week";
+export const upcoming = "/movie/upcoming";
+export const topRated = "/movie/top_rated";
+export const latest = "/movie/latest"
+export const popular = "/movie/popular";
+
+
+
 
 export const FILTER_OPTIONS = [
   'Show Trending Movies',
