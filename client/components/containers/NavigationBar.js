@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Menu, Dropdown, Sticky, Input, Button, Icon } from 'semantic-ui-react';
+import axios from 'axios';
+import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
 import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
+import { FILTER_ACTIONS } from '../../actions';
+const { SEARCH } = FILTER_ACTIONS;
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -14,6 +17,17 @@ class NavigationBar extends Component {
 
   ChangeFilter = (event, element) => {
     this.props.onChangeFilter(element.value);
+  }
+
+  Search = () => {
+    const { onUpdateFeed, onChangeFilter } = this.props;
+    const { keyword } = this.state;
+    axios.get(`/api/moviedata/search/${keyword}`)
+    .then(res => {
+      onUpdateFeed(SEARCH, res.data);
+      onChangeFilter(SEARCH);
+    })
+    .catch(err => console.error(err));
   }
 
   LimitGenres = (event, element) => {
@@ -32,12 +46,12 @@ class NavigationBar extends Component {
 
     return (
       <Sticky>
-        <Menu inverted={true} size="medium" borderless={true}>
+        <Menu inverted={true} size="small" borderless={true}>
           <Menu.Item as="h1">MovieNerdz</Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown
-                defaultValue={FILTER_OPTIONS[0][0]}
+                defaultValue={FILTER_OPTIONS[0][1]}
                 onChange={this.ChangeFilter}
                 selection={true}
                 button={true}
@@ -58,15 +72,10 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Input
+                icon={<Icon name="search" link={true} onClick={this.Search} />}
                 onChange={(event, element) => this.setState({ keyword: element.value })}
                 placeholder="Enter Keyword"
               />
-            </Menu.Item>
-            <Menu.Item>
-              <Button icon={true} labelPosition='right'>
-                Search
-                <Icon name='search' />
-              </Button>
             </Menu.Item>
             <Menu.Item>
               <LoginApp />

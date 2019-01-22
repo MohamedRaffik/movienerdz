@@ -9,7 +9,7 @@ Router.get('/trending', (req, res) => {
   .then(response => {
     res.send(response.data.results);
   })
-  .catch(error => res.status(500).send('Request Failed'));
+  .catch(error => res.status(500).send(error));
 });
 
 Router.get('/genres', (req, res) => {
@@ -17,8 +17,20 @@ Router.get('/genres', (req, res) => {
   .then(response => {
     res.send(response.data.genres);
   })
-  .catch(error => res.status(500).send('Request Failed'));
-})
+  .catch(error => res.status(500).send(error));
+});
+
+Router.get('/search/:keyword', (req, res) => {
+  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${req.params.keyword}&page=1&include_adult=false`)
+  .then(response => { 
+    res.json({
+      data: response.data.results,
+      total_pages: response.data.total_pages,
+      page: response.data.page
+    }); 
+  })
+  .catch(error => res.status(500).send(error));
+});
 
 // route for: upcoming, top_rated, popular, now_playing, latest
 Router.get('/:feed/:page', (req, res) => {
@@ -30,7 +42,7 @@ Router.get('/:feed/:page', (req, res) => {
       page: response.data.page
     }); 
   })
-  .catch(error => res.status(500).send('Request Failed'));
+  .catch(error => res.status(500).send(error));
 });
 
 module.exports = Router;

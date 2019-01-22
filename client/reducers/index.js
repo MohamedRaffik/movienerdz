@@ -15,7 +15,7 @@ const initialState = {
   popular: {},       
   top_rated: {},     
   playing_now: {},  
-  search: [],        
+  search: {},        
   filter: TRENDING   
 };
 
