@@ -8,6 +8,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const App = connect(mapDispatchToProps)(AppContainer);
+const App = connect(null, mapDispatchToProps)(AppContainer);
 
 export default App;
