@@ -1,23 +1,70 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Dropdown, Sticky, Input, Button, Icon } from 'semantic-ui-react';
+import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
+import Login from './Login';
 
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: 'home'  //
+      title: '',
+      genre: [],
+      filter: FILTER_OPTIONS[0]
     };
   }
+
   render() {
+    const GenreItems = GENRE_OPTIONS.map((element) => {
+      return { key: element, text: element, value: element };
+    });
 
-    const { active } = this.state;
-
+    const FilterItems = FILTER_OPTIONS.map((element) => {
+      return { key: element, text: element, value: element };
+    });
+  
     return (
-      <Menu>
-        <Menu.Item name='home' active={'home' === active}>Home Feed</Menu.Item>
-        <Menu.Item name='watchlater' active={'watchlater' === active}>Watch Later</Menu.Item>
-        <Menu.Item name="fav" active={'fav' === active}>Favorites</Menu.Item>
-      </Menu>
+      <Sticky>
+        <Menu inverted={true} size="huge" borderless={true}>
+          <Menu.Item as="h1">MovieNerdz</Menu.Item>
+          <Menu.Item position="right">
+            <Menu.Item>
+              <Dropdown
+                defaultValue={FILTER_OPTIONS[0]}
+                onChange={(event, element) => this.setState({ filter: element.value })}
+                selection={true}
+                button={true}
+                options={FilterItems}>
+              </Dropdown>
+            </Menu.Item>
+            <Menu.Item>
+              <Dropdown 
+                text="Genres" 
+                search={true} 
+                selection={true} 
+                clearable={true}
+                multiple={true}
+                onChange={(event, element) => this.setState({ genre: element.value })}
+                options={GenreItems}>
+              </Dropdown>
+            </Menu.Item>
+            <Menu.Item>
+              <Input
+                onChange={(event, element) => this.setState({ title: element.value })}
+                placeholder="Enter Keyword"
+              />
+            </Menu.Item>
+            <Menu.Item>
+              <Button icon={true} labelPosition='right'>
+                Search
+                <Icon name='search' />
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Login />
+            </Menu.Item>
+          </Menu.Item>
+        </Menu>
+      </Sticky>
     );
   }
 }

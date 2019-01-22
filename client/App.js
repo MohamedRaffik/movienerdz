@@ -1,40 +1,13 @@
 import React, { Component } from 'react';
-import NavigationBar from './components/containers/NavigationBar';
-import './App.css';
-import Feed from './components/presentational/Feed';
-import FeedItem from './components/presentational/FeedItem';
-
-
-
-const store = createStore(counter);
+import { NavigationBar, Feed } from './components';
+import { queryResults } from './components/constants';
 
 class App extends Component {
-  render() {
-  	var queryResults = [
-  	{
-  		"title": "Spiderman: Into the Spiderverse",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 9, 2019",
-
-  	},
-  	{
-  		"title": "Avengers: Infinity War",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 10, 2019",
-  		
-  	},
-  	{
-  		"title": "Bumblebee",
-  		"description": "a movie about various spider people from different realities coming into one.",
-  		"date": "January 11, 2019",
-  		
-  	}];
-  	console.log(queryResults);
+  render() {  	
     return (
       <div>
         <NavigationBar />
         <Feed results = {queryResults}/>
-        
       </div>
     );
   }
