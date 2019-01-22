@@ -17,7 +17,7 @@ const Feed = (props) => {
 	else if (filter === UPCOMING) results = props.upcoming;
 	else if (filter === POPULAR) results = props.popular;
 	else if (filter === TOP_RATED) results = props.top_rated;
-	else if (filter === PLAYING_NOW) restults = props.playing_now;
+	else if (filter === PLAYING_NOW) results = props.playing_now;
 	
 	const items = results.map((row, index) =>
 		<FeedItem key={index} data={row}/>
