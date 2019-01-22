@@ -67,21 +67,21 @@ class MovieSwipe extends Component {
         const playing_now = this.props.playing_now.data;
         return (
             !playing_now ?
-            <Segment>
-                <Dimmer active>
-                    <Loader size='large'>Loading</Loader>
-                </Dimmer>
-                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-            </Segment>
-      
-            :
-            <div className="carousel">
-                <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
-                <ImageSlide data={playing_now[index]} />
-                <Arrow direction="right" clickFunction={this.NextSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-right.png" />
-            </div>
+                <Segment>
+                    <Dimmer active>
+                        <Loader size='large'>Loading</Loader>
+                    </Dimmer>
+                    <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+                    <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+                    <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+                </Segment>
+
+                :
+                <div className="carousel">
+                    <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
+                    <ImageSlide data={playing_now[index]} />
+                    <Arrow direction="right" clickFunction={this.NextSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-right.png" />
+                </div>
         );
     }
 }

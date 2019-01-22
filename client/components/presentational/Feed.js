@@ -6,7 +6,6 @@ const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER
 
 
 const Feed = (props) => {
-	console.log(props);
 	let results = [];
 	const filter = props.filter;
 	if (filter === TRENDING) results = props.trending;
@@ -14,23 +13,22 @@ const Feed = (props) => {
 	else if (filter === POPULAR) results = props.popular.data;
 	else if (filter === TOP_RATED) results = props.top_rated.data;
 	else if (filter === SEARCH) results = props.search.data;
-	console.log(results);
 	const items = [];
-	for (let i = 0; i < results.length; i+=4) {
+	for (let i = 0; i < results.length; i += 4) {
 		items.push(
 			<Grid.Row key={i} centered={true}>
 				<FeedItem data={results[i]} />
-				<FeedItem data={results[i+1]} />
-				<FeedItem data={results[i+2]} />
-				<FeedItem data={results[i+3]} />
+				<FeedItem data={results[i + 1]} />
+				<FeedItem data={results[i + 2]} />
+				<FeedItem data={results[i + 3]} />
 			</Grid.Row>
 		);
-	} 
+	}
 
 	return (
-		<Segment inverted={true} style={{"margin": "0"}}>
+		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
-				<Grid.Row style={{"marginLeft": "2em"}}>
+				<Grid.Row style={{ "marginLeft": "2em" }}>
 					<h2>Results:</h2>
 				</Grid.Row>
 				{items}

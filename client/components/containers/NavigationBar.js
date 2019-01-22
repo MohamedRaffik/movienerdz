@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
-import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
+import { FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
 import { FILTER_ACTIONS } from '../../actions';
 const { SEARCH } = FILTER_ACTIONS;
@@ -12,7 +12,16 @@ class NavigationBar extends Component {
     this.state = {
       keyword: '',
       genre: [],
+      genres: []
     };
+  }
+
+  componentDidMount() {
+    axios.get('/api/moviedata/genres')
+      .then(res => {
+        this.setState({ genres: res.data })
+      })
+      .catch(err => console.error(err));
   }
 
   ChangeFilter = (event, element) => {
@@ -23,25 +32,36 @@ class NavigationBar extends Component {
     const { onUpdateFeed, onChangeFilter } = this.props;
     const { keyword } = this.state;
     axios.get(`/api/moviedata/search/${keyword}`)
-    .then(res => {
-      onUpdateFeed(SEARCH, res.data);
-      onChangeFilter(SEARCH);
-    })
-    .catch(err => console.error(err));
+      .then(res => {
+        onUpdateFeed(SEARCH, res.data);
+        onChangeFilter(SEARCH);
+      })
+      .catch(err => console.error(err));
   }
 
-  LimitGenres = (event, element) => {
-    if (element.value.length > 3) element.value.length = 3;
-    this.setState({ genre: element.value });
+  SearchGenres = (event, element) => {
+    const { onUpdateFeed, onChangeFilter } = this.props;
+    if (element.value.length >= 3) element.value.length = 3;
+    this.setState({ genre: element.value }, () => {
+      axios.post('/api/moviedata/genres', {
+        genres: this.state.genre
+      })
+        .then(res => {
+          onUpdateFeed(SEARCH, res.data);
+          onChangeFilter(SEARCH);
+        })
+        .catch(err => console.error(err));
+    });
   }
 
   render() {
-    const GenreItems = GENRE_OPTIONS.map((element) => {
-      return { key: element, text: element, value: element };
+    const { genres } = this.state;
+    const GenreItems = genres.map((element) => {
+      return { key: element.id, text: element.name, value: element.id };
     });
 
     const FilterItems = FILTER_OPTIONS.map((element) => {
-      return { key: element, text: element[0], value: element[1] };
+      return { key: element[1], text: element[0], value: element[1] };
     });
 
     return (
@@ -60,13 +80,12 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Dropdown
-                text="Genres"
-                value={this.state.genre}
+                text="Search By Genres"
                 search={true}
                 selection={true}
                 clearable={true}
                 multiple={true}
-                onChange={this.LimitGenres}
+                onChange={this.SearchGenres}
                 options={GenreItems}>
               </Dropdown>
             </Menu.Item>
