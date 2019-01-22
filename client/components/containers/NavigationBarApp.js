@@ -5,7 +5,6 @@ import NavigationBar from './NavigationBar';
 const mapStateToProps = (state, ownProps) => {
   return {
     filter: state.filter,
-    search: state.search
   };
 };
 

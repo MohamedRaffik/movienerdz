@@ -17,6 +17,17 @@ class NavigationBar extends Component {
     this.props.onChangeFilter(element.value);
   }
 
+  Search = () => {
+    const { onUpdateFeed, onChangeFilter } = this.props;
+    const { keyword } = this.state;
+    axios.get(`/api/moviedata/search/${keyword}`)
+    .then(res => {
+      onUpdateFeed(SEARCH, res.data);
+      onChangeFilter(SEARCH);
+    })
+    .catch(err => console.error(err));
+  }
+
   LimitGenres = (event, element) => {
     if (element.value.length > 3) element.value.length = 3;
     this.setState({ genre: element.value });
@@ -41,7 +52,7 @@ class NavigationBar extends Component {
 
             <Menu.Item>
               <Dropdown
-                defaultValue={FILTER_OPTIONS[0][0]}
+                defaultValue={FILTER_OPTIONS[0][1]}
                 onChange={this.ChangeFilter}
                 selection={true}
                 button={true}
@@ -62,15 +73,10 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Input
+                icon={<Icon name="search" link={true} onClick={this.Search} />}
                 onChange={(event, element) => this.setState({ keyword: element.value })}
                 placeholder="Enter Keyword"
               />
-            </Menu.Item>
-            <Menu.Item>
-              <Button icon={true} labelPosition='right'>
-                Search
-                <Icon name='search' />
-              </Button>
             </Menu.Item>
             <Menu.Item>
               <LoginApp />
