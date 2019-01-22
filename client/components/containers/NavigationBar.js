@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown, Sticky, Input, Button, Icon } from 'semantic-ui-react';
 import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
-import Login from './Login';
+import LoginApp from './LoginApp';
 
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
+      keyword: '',
       genre: [],
       filter: FILTER_OPTIONS[0]
     };
+  }
+
+  LimitGenres = (event, element) => {
+    if (element.value.length > 3) element.value.length = 3;
+    this.setState({ genre: element.value });
   }
 
   render() {
@@ -38,18 +43,19 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Dropdown 
-                text="Genres" 
+                text="Genres"
+                value={this.state.genre} 
                 search={true} 
                 selection={true} 
                 clearable={true}
                 multiple={true}
-                onChange={(event, element) => this.setState({ genre: element.value })}
+                onChange={this.LimitGenres}
                 options={GenreItems}>
               </Dropdown>
             </Menu.Item>
             <Menu.Item>
               <Input
-                onChange={(event, element) => this.setState({ title: element.value })}
+                onChange={(event, element) => this.setState({ keyword: element.value })}
                 placeholder="Enter Keyword"
               />
             </Menu.Item>
@@ -60,7 +66,7 @@ class NavigationBar extends Component {
               </Button>
             </Menu.Item>
             <Menu.Item>
-              <Login />
+              <LoginApp />
             </Menu.Item>
           </Menu.Item>
         </Menu>

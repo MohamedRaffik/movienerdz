@@ -1,2 +1,3 @@
-export { default as NavigationBar } from './containers/NavigationBar';
-export { default as Feed } from './presentational/Feed'
+export { default as NavigationBarApp } from './containers/NavigationBarApp'
+export { default as FeedApp } from './presentational/FeedApp';
+export { default as MovieSwipeApp } from './presentational/MovieSwipeApp';
