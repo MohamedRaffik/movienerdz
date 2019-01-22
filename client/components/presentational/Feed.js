@@ -6,13 +6,15 @@ const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER
 
 
 const Feed = (props) => {
+	console.log(props);
 	let results = [];
 	const filter = props.filter;
 	if (filter === TRENDING) results = props.trending;
 	else if (filter === UPCOMING) results = props.upcoming.data;
 	else if (filter === POPULAR) results = props.popular.data;
 	else if (filter === TOP_RATED) results = props.top_rated.data;
-
+	else if (filter === SEARCH) results = props.search.data;
+	console.log(results);
 	const items = [];
 	for (let i = 0; i < results.length; i+=4) {
 		items.push(
