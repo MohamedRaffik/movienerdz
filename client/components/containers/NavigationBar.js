@@ -9,10 +9,15 @@ class NavigationBar extends Component {
     this.state = {
       keyword: '',
       genre: [],
-      filter: FILTER_OPTIONS[0]
     };
   }
 
+<<<<<<< HEAD
+=======
+  ChangeFilter = (event, element) => {
+    this.props.onChangeFilter(element.value);
+  }
+>>>>>>> c495b668532821d0f28e8e6f0dee48bd23848d9c
 
   LimitGenres = (event, element) => {
     if (element.value.length > 3) element.value.length = 3;
@@ -25,29 +30,29 @@ class NavigationBar extends Component {
     });
 
     const FilterItems = FILTER_OPTIONS.map((element) => {
-      return { key: element, text: element, value: element };
+      return { key: element, text: element[0], value: element[1] };
     });
-  
+
     return (
       <Sticky>
-        <Menu inverted={true} size="huge" borderless={true}>
+        <Menu inverted={true} size="medium" borderless={true}>
           <Menu.Item as="h1">MovieNerdz</Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown
-                defaultValue={FILTER_OPTIONS[0]}
-                onChange={(event, element) => this.setState({ filter: element.value })}
+                defaultValue={FILTER_OPTIONS[0][0]}
+                onChange={this.ChangeFilter}
                 selection={true}
                 button={true}
                 options={FilterItems}>
               </Dropdown>
             </Menu.Item>
             <Menu.Item>
-              <Dropdown 
+              <Dropdown
                 text="Genres"
-                value={this.state.genre} 
-                search={true} 
-                selection={true} 
+                value={this.state.genre}
+                search={true}
+                selection={true}
                 clearable={true}
                 multiple={true}
                 onChange={this.LimitGenres}
