@@ -9,10 +9,9 @@ const Feed = (props) => {
 	let results = [];
 	const filter = props.filter;
 	if (filter === TRENDING) results = props.trending;
-	else if (filter === UPCOMING) results = props.upcoming;
-	else if (filter === POPULAR) results = props.popular;
-	else if (filter === TOP_RATED) results = props.top_rated;
-	else if (filter === PLAYING_NOW) results = props.playing_now;
+	else if (filter === UPCOMING) results = props.upcoming.data;
+	else if (filter === POPULAR) results = props.popular.data;
+	else if (filter === TOP_RATED) results = props.top_rated.data;
 
 	const items = [];
 	for (let i = 0; i < results.length; i+=4) {
