@@ -13,17 +13,10 @@ const Feed = (props) => {
 	else if (filter === POPULAR) results = props.popular.data;
 	else if (filter === TOP_RATED) results = props.top_rated.data;
 	else if (filter === SEARCH) results = props.search.data;
-	const items = [];
-	for (let i = 0; i < results.length; i += 4) {
-		items.push(
-			<Grid.Row key={i} centered={true}>
-				<FeedItem data={results[i]} />
-				<FeedItem data={results[i + 1]} />
-				<FeedItem data={results[i + 2]} />
-				<FeedItem data={results[i + 3]} />
-			</Grid.Row>
-		);
-	}
+	
+	const items = results.map((element, index) => 
+		<FeedItem key={index} data={element} />
+	);
 
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
@@ -31,7 +24,9 @@ const Feed = (props) => {
 				<Grid.Row style={{ "marginLeft": "2em" }}>
 					<h2>Results:</h2>
 				</Grid.Row>
-				{items}
+				<Grid.Row centered={true}>
+					{items}
+				</Grid.Row>
 			</Grid>
 		</Segment>
 	);

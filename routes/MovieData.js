@@ -47,7 +47,7 @@ Router.get('/search/:keyword', (req, res) => {
 
 // route for: upcoming, top_rated, popular, now_playing, latest
 Router.get('/:feed/:page', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/movie/${req.params.feed}?api_key=${API_KEY}&language=en-US&page=${req.params.page}`)
+  axios.get(`https://api.themoviedb.org/3/movie/${req.params.feed}?api_key=${API_KEY}&language=en-US&page=${req.params.page}&region=US`)
     .then(response => {
       res.json({
         data: response.data.results,
