@@ -19,7 +19,7 @@ const ImageSlide = (props) => {
         backgroundPosition: 'center'
     };
 
-    const caption = props.data.release_date;
+    const releaseDate = props.data.release_date;
     const title = props.data.name ? props.data.name : props.data.title;
     const rating = props.data.vote_average;
 
@@ -27,12 +27,14 @@ const ImageSlide = (props) => {
         <div className="image-slide fade" style={styles}>
             <div className="movie-text">
                 <div id="title">{title}</div>
+                <br></br>
                 <div id="rating">
                     <img src="https://img.icons8.com/nolan/64/000000/star.png" id="star" />
                     {rating}
+
+                    <img src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png" id="calendar" />
+                    <span id="release-date">{releaseDate}</span>
                 </div>
-                <br></br>
-                <div className="movie-caption">{caption}</div>
             </div>
         </div>
     );

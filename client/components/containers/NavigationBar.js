@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Dropdown, Sticky, Input, Button, Icon, Image } from 'semantic-ui-react';
 import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
-import Logo from '../../Images/mn1.png';
-
+import Logo from '../../Images/mn1.png'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -34,9 +33,12 @@ class NavigationBar extends Component {
 
     return (
       <Sticky>
-        <Menu inverted={true} size="medium" borderless={true}>
-          <Menu.Item as="h1">MovieNerdz</Menu.Item>
+        <Menu inverted={true} size="small" borderless={true}>
+        <Menu.Item>
+        <Image src={Logo} style={{height: "700", width: "150px", marginLeft:"50px"}}></Image>  
+        </Menu.Item>
           <Menu.Item position="right">
+
             <Menu.Item>
               <Dropdown
                 defaultValue={FILTER_OPTIONS[0][0]}
