@@ -14,10 +14,11 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Dropdown, Sticky, Input, Icon, Form } from 'semantic-ui-react';
+import { Menu, Dropdown, Sticky, Input, Icon, Form, Image } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
 import { FILTER_ACTIONS, updateGenre } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+import Logo from '../../Images/mn1.png'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -103,8 +104,11 @@ class NavigationBar extends Component {
     return (
       <Sticky>
         <Menu inverted={true} size="small" borderless={true}>
-          <Menu.Item as="h1">MovieNerdz</Menu.Item>
+          <Menu.Item>
+            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }}></Image>
+          </Menu.Item>
           <Menu.Item position="right">
+
             <Menu.Item>
               <Dropdown
                 defaultValue={filter_options[0][1]}

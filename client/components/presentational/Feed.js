@@ -1,9 +1,4 @@
-/*
-	Presentational Component that shows a grid of FeedItems
-	Displays information based upon the filter given to show the appropriate feed
-	Allows for users to traverse through pages of results
-*/
-
+//Feed component to display movie results based on sorting
 import React from 'react';
 import FeedItem from './FeedItem';
 import { Grid, Segment, Button } from 'semantic-ui-react';
@@ -37,11 +32,11 @@ const Feed = (props) => {
 			[POPULAR, 'popular'],
 		];
 		if (filter === SEARCH && genres.length !== 0) {
-			axios.post(`/api/moviedata/genres/${page+number}`, {
+			axios.post(`/api/moviedata/genres/${page + number}`, {
 				genres
 			})
-			.then(res => onUpdateFeed(SEARCH, res.data))
-			.catch(err => console.error(err));
+				.then(res => onUpdateFeed(SEARCH, res.data))
+				.catch(err => console.error(err));
 		}
 		else {
 			let feed;
@@ -53,9 +48,19 @@ const Feed = (props) => {
 		}
 	}
 
+	//Removes '_' from the filter to display
+	var filterDisplay = (filter) => {
+		if (filter !== "TOP_RATED") return filter;
+		else return "TOP RATED";
+
+	}
+
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
+				<Grid.Row style={{ "marginLeft": "2em" }}>
+					<h2>{filterDisplay(props.filter)}</h2>
+				</Grid.Row>
 				<Grid.Row centered={true}>
 					{items}
 				</Grid.Row>

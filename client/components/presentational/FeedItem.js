@@ -5,6 +5,7 @@
 
 import { Card, Image } from 'semantic-ui-react';
 import React from 'react';
+import MovieModal from './MovieModal'
 
 const FeedItem = (props) => {
 	const style = {
@@ -14,7 +15,9 @@ const FeedItem = (props) => {
 
 	let { overview, release_date, poster_path } = props.data;
 	if (!poster_path) poster_path = props.data.backdrop_path;
+	let backdrop_path = props.data.backdrop_path;
 	let title = props.data.name ? props.data.name : props.data.title;
+	let vote_average = props.data.vote_average;
 	
 	return (
 		<Card style={style}>
@@ -24,6 +27,7 @@ const FeedItem = (props) => {
 				<Card.Meta>
 					<span className="movie">{release_date}</span>
 				</Card.Meta>
+				<MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average}/>
 			</Card.Content>
 		</Card>
 	);

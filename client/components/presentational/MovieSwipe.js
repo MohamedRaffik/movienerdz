@@ -1,11 +1,7 @@
-/*
-  Presentation Component that is the Movie Poster Slider
-  Shows Playing Now movies
-  For every movie/slide displays the name of the movie, rating, and the release date
-*/
-
+//MoveSwipe component movie carousel to display now playing
 import React, { Component } from 'react';
 import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
+import MovieModal from './MovieModal';
 import './MovieSwipe.css';
 
 
@@ -17,7 +13,6 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
     </div>
 );
 
-
 const ImageSlide = (props) => {
     const styles = {
         backgroundImage: `url("https://image.tmdb.org/t/p/w1280${props.data.backdrop_path}")`,
@@ -25,20 +20,32 @@ const ImageSlide = (props) => {
         backgroundPosition: 'center'
     };
 
-    const caption = props.data.release_date;
+    //Set data from props
+    const releaseDate = props.data.release_date;
     const title = props.data.name ? props.data.name : props.data.title;
     const rating = props.data.vote_average;
+
+    const { overview, release_date, backdrop_path, vote_average } = props.data;
+
+    var formatDate = (date) => {
+        let newDate = date.replace('-', '/').replace('-', '/');
+        newDate = newDate.slice(5, 10) + '/' + newDate.slice(0, 4);
+        return newDate;
+    }
 
     return (
         <div className="image-slide fade" style={styles}>
             <div className="movie-text">
                 <div id="title">{title}</div>
+                <br></br>
                 <div id="rating">
                     <img src="https://img.icons8.com/nolan/64/000000/star.png" id="star" />
                     {rating}
+                    <img src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png" id="calendar" />
+                    <span id="release-date">{formatDate(releaseDate)}</span>
                 </div>
                 <br></br>
-                <div className="movie-caption">{caption}</div>
+                <MovieModal title={title} overview={overview} release_date={formatDate(release_date)} backdrop_path={backdrop_path} vote_average={vote_average} />
             </div>
         </div>
     );
@@ -69,6 +76,7 @@ class MovieSwipe extends Component {
     }
 
     render() {
+        //If the api call doesn't return a response in time render loading, otherwise render slideshow
         const { index } = this.state;
         const playing_now = this.props.playing_now.data;
         return (
