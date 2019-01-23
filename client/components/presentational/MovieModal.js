@@ -6,6 +6,9 @@ import './MovieModal.css';
 class MovieModal extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            isOpen: false
+        }
     }
 /* Current bug: Movie Slideshow always rendering for first movie bumble bee regardless of movie slide
     //If new props are passed prevent rerender of modal
@@ -14,6 +17,14 @@ class MovieModal extends Component {
         else return true;
     }
 */
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.isOpen) {
+            if (nextProps !== this.props) return false;
+            else return true;
+        }
+       return true;
+    }
+
     formatDate = (date) => {
         if (!date) return date;
         let newDate = date.replace('-', '/').replace('-', '/');
@@ -21,11 +32,15 @@ class MovieModal extends Component {
         return newDate;
     }
 
+    modalStateChange = () => {
+        this.setState({isOpen: !this.state.isOpen});
+    }
+
     render(){
         const {title, overview, vote_average, release_date, backdrop_path} = this.props;
 
         return (
-            <Modal id="modal" size="small" trigger={<Button style={{backgroundColor: "rgba(255,255,255,.0)", color:"white", fontWeight:"bold" }}>More Info</Button>}>
+            <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{backgroundColor: "rgba(255,255,255,.0)", color:"white", fontWeight:"bold" }}>More Info</Button>}>
                 <Modal.Header id="movie-title">{title}</Modal.Header>
                 <Image  size="massive" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
                 <Header id="movie-info">

@@ -57,22 +57,27 @@ class MovieSwipe extends Component {
     this.state = {
       index: 0
     };
+    this.interval= 0;
   }
 
   componentDidMount() {
-    setInterval(() => this.NextSlide(), 4000);
+    this.interval = setInterval(() => this.NextSlide(), 4000);
   }
 
   PreviousSlide = () => {
     const playing_now = this.props.playing_now.data;
     const index = this.state.index === 0 ? playing_now.length - 1 : this.state.index - 1;
     this.setState({ index: index });
+    clearInterval(this.interval);
+    this.interval=setInterval(() => this.NextSlide(), 4000);
   }
 
   NextSlide = () => {
     const playing_now = this.props.playing_now.data;
     const index = this.state.index === playing_now.length - 1 ? 0 : this.state.index + 1;
     this.setState({ index: index });
+    clearInterval(this.interval);
+    this.interval=setInterval(() => this.NextSlide(), 4000);
   }
 
   render() {
@@ -82,7 +87,7 @@ class MovieSwipe extends Component {
       !playing_now ?
         <Segment>
           <Dimmer active>
-            <Loader size='large'>Loading</Loader>
+            <Loader size='large'>Downloading RAM</Loader>
           </Dimmer>
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
