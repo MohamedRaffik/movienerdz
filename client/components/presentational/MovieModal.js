@@ -14,6 +14,13 @@ class MovieModal extends Component {
         else return true;
     }
 */
+    formatDate = (date) => {
+        if (!date) return date;
+        let newDate = date.replace('-', '/').replace('-', '/');
+        newDate = newDate.slice(5, 10) + '/' + newDate.slice(0, 4);
+        return newDate;
+    }
+
     render(){
         const {title, overview, vote_average, release_date, backdrop_path} = this.props;
 
@@ -26,7 +33,7 @@ class MovieModal extends Component {
                         <img id="star" src="https://img.icons8.com/nolan/64/000000/star.png"  />
                         {vote_average}
                         <img id="calendar" src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png"  />
-                        <span id="release-date">{release_date}</span>
+                        <span id="release-date">{this.formatDate(release_date)}</span>
                     </div></Header>          
                 <Modal.Description>
                     <p id="overview">{overview}</p>
