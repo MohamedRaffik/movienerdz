@@ -49,14 +49,14 @@ const Feed = (props) => {
 	}
 
 	//Removes '_' from the filter to display
-	const filterDisplay  = (filter) => {
-		const { genres, keyword } = props;
-		filter = filter.toLowerCase();
-		filter = filter.replace(filter[0], filter[0].toUpperCase())
-		if (filter === SEARCH && genres.length === 0) filter += ` by Keyword: ${keyword}`
-		else if (filter === SEARCH && genres.length !== 0) filter += ` by Genres: ${genres}`
-		filter = filter.replace('_', ' ');
-		return filter
+	const filterDisplay = (filter) => {
+		const { genres, genre_labels, keyword } = props;
+		let new_filter = filter.toLowerCase();
+		new_filter = new_filter.replace(new_filter[0], new_filter[0].toUpperCase());
+		if (filter === TOP_RATED) new_filter = 'Top Rated'
+		if (filter === SEARCH && genres.length === 0) new_filter += ` by Keyword : '${keyword}'`
+		else if (filter === SEARCH && genres.length !== 0) new_filter += ` by Genres : ${genre_labels.toString().replace(',', ', ').replace(',',', ')}`
+		return new_filter
 	}
 
 	return (
@@ -72,11 +72,11 @@ const Feed = (props) => {
 			{feed.data ?
 				<Segment textAlign='center' inverted={true}>
 					<Button.Group >
-						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1-page)}/>
+						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1 - page)} />
 						<Button disabled={page === 1} icon='angle left' onClick={() => ChangePage(-1)} />
 						<Button disabled={true}>{page}/{total_pages}</Button>
 						<Button disabled={page === total_pages} icon='angle right' onClick={() => ChangePage(1)} />
-						<Button disabled={page === total_pages} icon='angle double right' onClick={() => ChangePage(total_pages-page)}/>
+						<Button disabled={page === total_pages} icon='angle double right' onClick={() => ChangePage(total_pages - page)} />
 					</Button.Group>
 				</Segment>
 				:

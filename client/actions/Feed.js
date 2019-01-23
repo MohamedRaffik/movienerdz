@@ -47,9 +47,10 @@ export const updateKeyword = (keyword) => {
   }
 }
 
-export const updateGenre = (genres) => {
+export const updateGenre = (genres, genre_labels) => {
   return {
     type: UPDATE_GENRE,
-    genres
+    genres,
+    genre_labels
   }
 }

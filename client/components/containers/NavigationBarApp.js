@@ -17,7 +17,7 @@ const MapDispatchtoProps = (dispatch, ownProps) => {
     onChangeFilter: (filter) => dispatch(changeFilter(filter)),
     onUpdateFeed: (type, data) => dispatch(updateFeed(type, data)),
     onUpdateKeyword: (keyword) => dispatch(updateKeyword(keyword)),
-    onUpdateGenre: (genres) => dispatch(updateGenre(genres))
+    onUpdateGenre: (genres, genre_labels) => dispatch(updateGenre(genres, genre_labels))
   };
 };
 

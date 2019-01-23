@@ -13,6 +13,12 @@ const FeedItem = (props) => {
 		boxShadow: "0 4px 8px 0 rgba(255, 255, 255, 0.5), 0 6px 20px 0 rgba(255, 255, 255, 0.3)"
 	}
 
+	// const formatDate = (date) => {
+  //   let newDate = date.replace('-', '/').replace('-', '/');
+  //   newDate = newDate.slice(5, 10) + '/' + newDate.slice(0, 4);
+  //   return newDate;
+  // }
+
 	let { overview, release_date, poster_path } = props.data;
 	if (!poster_path) poster_path = props.data.backdrop_path;
 	let backdrop_path = props.data.backdrop_path;
