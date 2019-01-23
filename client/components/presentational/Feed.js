@@ -45,9 +45,13 @@ const Feed = (props) => {
 		else return "TOP RATED";
 
 	}
+	const style = {
+		margin: "0",
+		background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,1))"
+	}
 
 	return (
-		<Segment inverted={true} style={{ "margin": "0" }}>
+		<Segment id="segment" inverted={true} style={style}>
 			<Grid relaxed={true} padded={true}>
 				<Grid.Row style={{ "marginLeft": "2em" }}>
 					<h2>{filterDisplay(props.filter)}</h2>
