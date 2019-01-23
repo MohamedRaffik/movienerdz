@@ -23,9 +23,9 @@ Router.get('/genres', (req, res) => {
 });
 
 //Gets a json with an array of genres that are used to find movies based on the combination of genres [Max of three genres]
-Router.post('/genres', (req, res) => {
+Router.post('/genres/:page', (req, res) => {
   const genre_string = req.body.genres.toString().replace(',', '%2C').replace(',', '%2C');
-  axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre_string}`)
+  axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${req.params.page}&with_genres=${genre_string}`)
     .then(response => {
       res.json({
         data: response.data.results,

@@ -29,27 +29,33 @@ const Feed = (props) => {
 	);
 
 	const ChangePage = (number) => {
-		const { onUpdateFeed, keyword } = props;
+		const { onUpdateFeed, keyword, genres } = props;
 		const feeds = [
 			[TRENDING, 'trending'],
 			[UPCOMING, 'upcoming'],
 			[TOP_RATED, 'top_rated'],
 			[POPULAR, 'popular'],
 		];
-		let feed;
-		feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
-		const url = (filter === SEARCH) ? `api/moviedata/search/${keyword}/${page + number}` : `/api/moviedata/${feed}/${page + number}`;
-		axios.get(url)
-			.then(res => onUpdateFeed(filter, res.data))
+		if (filter === SEARCH && genres.length !== 0) {
+			axios.post(`/api/moviedata/genres/${page+number}`, {
+				genres
+			})
+			.then(res => onUpdateFeed(SEARCH, res.data))
 			.catch(err => console.error(err));
+		}
+		else {
+			let feed;
+			feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
+			const url = (filter === SEARCH) ? `api/moviedata/search/${keyword}/${page + number}` : `/api/moviedata/${feed}/${page + number}`;
+			axios.get(url)
+				.then(res => onUpdateFeed(filter, res.data))
+				.catch(err => console.error(err));
+		}
 	}
 
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
-				<Grid.Row style={{ "marginLeft": "2em" }}>
-					<h2>Results:</h2>
-				</Grid.Row>
 				<Grid.Row centered={true}>
 					{items}
 				</Grid.Row>

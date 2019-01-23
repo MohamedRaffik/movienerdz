@@ -14,9 +14,9 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
+import { Menu, Dropdown, Sticky, Input, Icon, Form } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
-import { FILTER_ACTIONS } from '../../actions';
+import { FILTER_ACTIONS, updateGenre } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 class NavigationBar extends Component {
@@ -54,8 +54,9 @@ class NavigationBar extends Component {
   }
 
   Search = () => {
-    const { onUpdateFeed, onChangeFilter, onUpdateKeyword } = this.props;
+    const { onUpdateFeed, onChangeFilter, onUpdateKeyword, onUpdateGenre } = this.props;
     const { keyword } = this.state;
+    onUpdateGenre([]);
     onUpdateKeyword(keyword);
     axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
@@ -66,10 +67,12 @@ class NavigationBar extends Component {
   }
 
   SearchGenres = (event, element) => {
-    const { onUpdateFeed, onChangeFilter } = this.props;
-    if (element.value.length >= 3) element.value.length = 3;
+    const { onUpdateFeed, onChangeFilter, onUpdateGenre } = this.props;
+    if (element.value.length === 0) return;
+    else if (element.value.length >= 3) element.value.length = 3;
     this.setState({ genre: element.value }, () => {
-      axios.post('/api/moviedata/genres', {
+      onUpdateGenre(this.state.genre);
+      axios.post('/api/moviedata/genres/1', {
         genres: this.state.genre
       })
         .then(res => {
@@ -123,11 +126,20 @@ class NavigationBar extends Component {
               </Dropdown>
             </Menu.Item>
             <Menu.Item>
-              <Input
+              <Form onSubmit={this.Search}>
+                <Form.Field>
+                  <Input
+                    icon={<Icon name="search" link={true} onClick={this.Search} />}
+                    onChange={(event, element) => this.setState({ keyword: element.value })}
+                    placeholder="Enter Keyword"
+                  />
+                </Form.Field>
+              </Form>
+              {/* <Input
                 icon={<Icon name="search" link={true} onClick={this.Search} />}
                 onChange={(event, element) => this.setState({ keyword: element.value })}
                 placeholder="Enter Keyword"
-              />
+              /> */}
             </Menu.Item>
             <Menu.Item>
               <LoginApp />

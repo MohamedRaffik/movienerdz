@@ -3,7 +3,7 @@
 */  
 
 import { connect } from 'react-redux';
-import { changeFilter, updateFeed, updateKeyword } from '../../actions';
+import { changeFilter, updateFeed, updateKeyword, updateGenre } from '../../actions';
 import NavigationBar from './NavigationBar';
 
 const MapStateToProps = (state, ownProps) => {
@@ -16,7 +16,8 @@ const MapDispatchtoProps = (dispatch, ownProps) => {
   return {
     onChangeFilter: (filter) => dispatch(changeFilter(filter)),
     onUpdateFeed: (type, data) => dispatch(updateFeed(type, data)),
-    onUpdateKeyword: (keyword) => dispatch(updateKeyword(keyword))
+    onUpdateKeyword: (keyword) => dispatch(updateKeyword(keyword)),
+    onUpdateGenre: (genres) => dispatch(updateGenre(genres))
   };
 };
 
