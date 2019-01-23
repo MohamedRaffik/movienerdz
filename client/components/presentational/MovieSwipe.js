@@ -23,7 +23,7 @@ const ImageSlide = (props) => {
   const releaseDate = props.data.release_date;
   const title = props.data.name ? props.data.name : props.data.title;
   const rating = props.data.vote_average;
-  console.log(props.data)
+
   const { overview, release_date, backdrop_path, vote_average } = props.data;
 
   const formatDate = (date) => {

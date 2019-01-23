@@ -36,7 +36,7 @@ class MovieModal extends Component {
         const {title, overview, vote_average, release_date, backdrop_path} = this.props;
 
         return (
-            <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{backgroundColor: "rgba(255,255,255,.0)", color:"white", fontWeight:"bold" }}>More Info</Button>}>
+            <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{backgroundColor: "rgba(255,255,255,1)", fontWeight:"bold" }}>More Info</Button>}>
                 <Modal.Header id="movie-title">{title}</Modal.Header>
                 <Image  size="massive" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
                 <Header id="movie-info">
