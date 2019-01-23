@@ -25,7 +25,13 @@ const ImageSlide = (props) => {
     const title = props.data.name ? props.data.name : props.data.title;
     const rating = props.data.vote_average;
 
-	const {  overview, release_date, backdrop_path, vote_average } = props.data;
+    const {  overview, release_date, backdrop_path, vote_average } = props.data;
+    
+    var formatDate = (date) => {
+        let newDate = date.replace('-','/').replace('-','/');
+        newDate = newDate.slice(5, 10) + '/' + newDate.slice(0,4);
+        return newDate;
+    }
     
     return (
         <div className="image-slide fade" style={styles}>
@@ -36,10 +42,10 @@ const ImageSlide = (props) => {
                     <img src="https://img.icons8.com/nolan/64/000000/star.png" id="star" />
                     {rating}
                     <img src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png" id="calendar" />
-                    <span id="release-date">{releaseDate}</span>
+                    <span id="release-date">{formatDate(releaseDate)}</span>
                 </div>
                 <br></br>
-                <MovieModal title={title} overview={overview}  release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average}/>
+                <MovieModal title={title} overview={overview}  release_date={formatDate(release_date)} backdrop_path={backdrop_path} vote_average={vote_average}/>
             </div>
         </div>
     );

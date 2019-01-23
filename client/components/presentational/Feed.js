@@ -39,11 +39,18 @@ const Feed = (props) => {
 			.catch(err => console.error(err));
 	}
 
+	//Removes '_' from the filter to display
+	var filterDisplay  = (filter) => {
+		if (filter !== "TOP_RATED") return filter;
+		else return "TOP RATED";
+
+	}
+
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
 				<Grid.Row style={{ "marginLeft": "2em" }}>
-					<h2>Results:</h2>
+					<h2>{filterDisplay(props.filter)}</h2>
 				</Grid.Row>
 				<Grid.Row centered={true}>
 					{items}
