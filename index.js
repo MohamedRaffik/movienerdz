@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const api = require('./routes');
 const PATH_DIR = process.env.NODE_ENV === 'production' ? 'build' : 'public';
-const axios = require('axios')
 
 
 //auth
