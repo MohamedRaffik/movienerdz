@@ -7,17 +7,17 @@ module.exports = (db, Sequelize) => {
     favorites: { type: Sequelize.JSON },
     watchLater: { type: Sequelize.JSON }
   }, {
-    hooks: {
-      beforeCreate: (user) => {
-        return bcrypt.hash(user.password, 10)
-          .then(hash => { user.password = hash; })
-          .catch(err => console.error(err));
+      hooks: {
+        beforeCreate: (user) => {
+          return bcrypt.hash(user.password, 10)
+            .then(hash => { user.password = hash; })
+            .catch(err => console.error(err));
+        }
+      },
+      instanceMethods: {
+        validPassword: (password) => {
+          return bcrypt.compare(password, this.password);
+        }
       }
-    },
-    instanceMethods: {
-      validPassword: (password) => {
-        return bcrypt.compare(password, this.password);
-      } 
-    }
-  })
+    })
 }

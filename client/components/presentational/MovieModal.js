@@ -7,13 +7,14 @@ class MovieModal extends Component {
     constructor(props){
         super(props);
     }
-
+    
+/* Current bug: Movie Slideshow always rendering for first movie bumble bee regardless of movie slide
     //If new props are passed prevent rerender of modal
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps !== this.props) return false;
         else return true;
     }
-
+*/
     render(){
         const {title, overview, vote_average, release_date, backdrop_path} = this.props;
 
