@@ -4,6 +4,7 @@ import FeedItem from './FeedItem';
 import { Grid, Segment, Button } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
 import axios from 'axios';
+import { Genres } from '../constants';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 
@@ -50,12 +51,18 @@ const Feed = (props) => {
 
 	//Removes '_' from the filter to display
 	const filterDisplay = (filter) => {
-		const { genres, genre_labels, keyword } = props;
+		const { genres, keyword } = props;
+		let genre_string = '';
+		if (genres.length > 0) {
+			genres.forEach((element, index) => {
+				Genres.forEach((e) => genre_string += (e.id === element) ? e.name : '');
+				genre_string += (index + 1 === genres.length) ? '' : ', ';
+			});
+		}
 		let new_filter = filter.toLowerCase();
 		new_filter = new_filter.replace(new_filter[0], new_filter[0].toUpperCase());
 		if (filter === TOP_RATED) new_filter = 'Top Rated'
-		if (filter === SEARCH && genres.length === 0) new_filter += ` by Keyword : '${keyword}'`
-		else if (filter === SEARCH && genres.length !== 0) new_filter += ` by Genres : ${genre_labels.toString().replace(',', ', ').replace(',',', ')}`
+		else if (filter === SEARCH) new_filter += (genres.length === 0) ? `by Keyword: ${keyword}` : ` by Genre: ${genre_string}`
 		return new_filter
 	}
 

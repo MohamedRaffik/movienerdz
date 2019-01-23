@@ -16,8 +16,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon, Form, Image } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
-import { FILTER_ACTIONS, updateGenre } from '../../actions';
+import { FILTER_ACTIONS } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+import { Genres } from '../constants';
 import Logo from '../../Images/mn1.png'
 
 class NavigationBar extends Component {
@@ -26,14 +27,7 @@ class NavigationBar extends Component {
     this.state = {
       keyword: '',
       genre: [],
-      genres: []
     };
-  }
-
-  componentDidMount() {
-    axios.get('/api/moviedata/genres')
-      .then(res => this.setState({ genres: res.data }))
-      .catch(err => console.error(err));
   }
 
   ChangeFilter = (event, element) => {
@@ -57,7 +51,7 @@ class NavigationBar extends Component {
   Search = () => {
     const { onUpdateFeed, onChangeFilter, onUpdateKeyword, onUpdateGenre } = this.props;
     const keyword = (this.state.keyword !== '') ? this.state.keyword : ' ';
-    onUpdateGenre([], []);
+    onUpdateGenre([]);
     onUpdateKeyword(keyword);
     axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
@@ -72,11 +66,7 @@ class NavigationBar extends Component {
     if (element.value.length === 0) return;
     else if (element.value.length >= 3) element.value.length = 3;
     this.setState({ genre: element.value }, () => {
-      let genre_keywords = []
-      this.state.genres.map((element) => {
-        if (this.state.genre.indexOf(element.id) > -1) genre_keywords.push(element.name);
-      });
-      onUpdateGenre(this.state.genre, genre_keywords);
+      onUpdateGenre(this.state.genre);
       axios.post('/api/moviedata/genres/1', {
         genres: this.state.genre
       })
@@ -95,9 +85,8 @@ class NavigationBar extends Component {
       ['Show Popular Movies', POPULAR],
       ['Show Top Rated Movies', TOP_RATED]
     ];
-    const { genres } = this.state;
 
-    const GenreItems = genres.map((element) => {
+    const GenreItems = Genres.map((element) => {
       return { key: element.id, text: element.name, value: element.id };
     });
 
