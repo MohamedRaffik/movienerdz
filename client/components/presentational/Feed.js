@@ -1,6 +1,6 @@
 //Feed component to display movie results based on sorting
 import React from 'react';
-import FeedItem from './FeedItem';
+import FeedItemApp from './FeedItemApp';
 import { Grid, Segment, Button } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
 import axios from 'axios';
@@ -21,7 +21,7 @@ const Feed = (props) => {
 	const { page, total_pages, data } = (feed.data) ? feed : default_state;
 
 	const items = data.map((element, index) =>
-		<FeedItem key={index} data={element} />
+		<FeedItemApp key={index} data={element} />
 	);
 
 	const ChangePage = (number) => {
