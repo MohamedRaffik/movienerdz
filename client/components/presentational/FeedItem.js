@@ -1,3 +1,4 @@
+//FeedItem component to display detailed information
 import {Card, Image} from 'semantic-ui-react';
 import React from 'react';
 import MovieModal from './MovieModal'

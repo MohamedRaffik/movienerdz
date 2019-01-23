@@ -1,3 +1,4 @@
+//Feed component to display movie results based on sorting
 import React from 'react';
 import FeedItem from './FeedItem';
 import { Grid, Segment } from 'semantic-ui-react';

@@ -1,5 +1,7 @@
+//MoveSwipe component movie carousel to display now playing
 import React, { Component } from 'react';
 import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
+import MovieModal from './MovieModal';
 import './MovieSwipe.css';
 
 
@@ -11,7 +13,6 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
     </div>
 );
 
-
 const ImageSlide = (props) => {
     const styles = {
         backgroundImage: `url("https://image.tmdb.org/t/p/w1280${props.data.backdrop_path}")`,
@@ -19,10 +20,13 @@ const ImageSlide = (props) => {
         backgroundPosition: 'center'
     };
 
+    //Set data from props
     const releaseDate = props.data.release_date;
     const title = props.data.name ? props.data.name : props.data.title;
     const rating = props.data.vote_average;
 
+	const {  overview, release_date, backdrop_path, vote_average } = props.data;
+    
     return (
         <div className="image-slide fade" style={styles}>
             <div className="movie-text">
@@ -31,10 +35,11 @@ const ImageSlide = (props) => {
                 <div id="rating">
                     <img src="https://img.icons8.com/nolan/64/000000/star.png" id="star" />
                     {rating}
-
                     <img src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png" id="calendar" />
                     <span id="release-date">{releaseDate}</span>
                 </div>
+                <br></br>
+                <MovieModal title={title} overview={overview}  release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average}/>
             </div>
         </div>
     );
@@ -65,6 +70,7 @@ class MovieSwipe extends Component {
     }
 
     render() {
+        //If the api call doesn't return a response in time render loading, otherwise render slideshow
         const { index } = this.state;
         const playing_now = this.props.playing_now.data;
         return (
