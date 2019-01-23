@@ -104,9 +104,9 @@ class NavigationBar extends Component {
     return (
       <Sticky offset='5'>
         <Menu inverted={true} size="small" borderless={true}>
-        <Menu.Item>
-        <Image src={Logo} style={{height: "700", width: "150px", marginLeft:"50px"}}></Image>  
-        </Menu.Item>
+          <Menu.Item>
+            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }}></Image>
+          </Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown

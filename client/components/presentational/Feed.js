@@ -32,11 +32,11 @@ const Feed = (props) => {
 			[POPULAR, 'popular'],
 		];
 		if (filter === SEARCH && genres.length !== 0) {
-			axios.post(`/api/moviedata/genres/${page+number}`, {
+			axios.post(`/api/moviedata/genres/${page + number}`, {
 				genres
 			})
-			.then(res => onUpdateFeed(SEARCH, res.data))
-			.catch(err => console.error(err));
+				.then(res => onUpdateFeed(SEARCH, res.data))
+				.catch(err => console.error(err));
 		}
 		else {
 			let feed;
