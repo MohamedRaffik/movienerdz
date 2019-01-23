@@ -1,9 +1,4 @@
-/*
-	Presentational Component that shows a grid of FeedItems
-	Displays information based upon the filter given to show the appropriate feed
-	Allows for users to traverse through pages of results
-*/
-
+//Feed component to display movie results based on sorting
 import React from 'react';
 import FeedItem from './FeedItem';
 import { Grid, Segment, Button } from 'semantic-ui-react';
@@ -53,9 +48,23 @@ const Feed = (props) => {
 		}
 	}
 
+	//Removes '_' from the filter to display
+	const filterDisplay  = (filter) => {
+		const { genres, keyword } = props;
+		filter = filter.toLowerCase();
+		filter = filter.replace(filter[0], filter[0].toUpperCase())
+		if (filter === SEARCH && genres.length === 0) filter += ` by Keyword: ${keyword}`
+		else if (filter === SEARCH && genres.length !== 0) filter += ` by Genres: ${genres}`
+		filter = filter.replace('_', ' ');
+		return filter
+	}
+
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
+				<Grid.Row style={{ "marginLeft": "2em" }}>
+					<h2>{filterDisplay(props.filter)}</h2>
+				</Grid.Row>
 				<Grid.Row centered={true}>
 					{items}
 				</Grid.Row>
@@ -63,9 +72,11 @@ const Feed = (props) => {
 			{feed.data ?
 				<Segment textAlign='center' inverted={true}>
 					<Button.Group >
-						<Button disabled={page === 1} icon='left arrow' onClick={() => ChangePage(-1)} />
-						<Button disabled={true}>{page}</Button>
-						<Button disabled={page === total_pages} icon='right arrow' onClick={() => ChangePage(1)} />
+						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1-page)}/>
+						<Button disabled={page === 1} icon='angle left' onClick={() => ChangePage(-1)} />
+						<Button disabled={true}>{page}/{total_pages}</Button>
+						<Button disabled={page === total_pages} icon='angle right' onClick={() => ChangePage(1)} />
+						<Button disabled={page === total_pages} icon='angle double right' onClick={() => ChangePage(total_pages-page)}/>
 					</Button.Group>
 				</Segment>
 				:

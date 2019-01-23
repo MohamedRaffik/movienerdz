@@ -12,14 +12,14 @@ const Router = require('express').Router();
 Router.get('/trending', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/trending/movies/week?api_key=${API_KEY}`)
     .then(response => res.send(response.data.results))
-    .catch(error => res.status(500).send(error));
+    .catch(error => res.status(500).send(error.response.data.status_message));
 });
 
 //Gets and sends list of all genres and genre ids
 Router.get('/genres', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
     .then(response => res.send(response.data.genres))
-    .catch(error => res.status(500).send(error));
+    .catch(error => res.status(500).send(error.response.data.status_message));
 });
 
 //Gets a json with an array of genres that are used to find movies based on the combination of genres [Max of three genres]
@@ -33,7 +33,7 @@ Router.post('/genres/:page', (req, res) => {
         page: response.data.page
       });
     })
-    .catch(error => console.error(error));
+    .catch(error => res.status(500).send(error.response.data.status_message));
 })
 
 //Gets and sends a set of movie json objects based on a keyword entered by the user
@@ -46,7 +46,7 @@ Router.get('/search/:keyword/:page', (req, res) => {
         page: response.data.page
       });
     })
-    .catch(error => res.status(500).send(error));
+    .catch(error => res.status(500).send(error.response.data.status_message));
 });
 
 // Route to retrieve upcoming, top_rated, popular, now_playing, latest feeds, can also retrieve different pages of information
@@ -59,7 +59,7 @@ Router.get('/:feed/:page', (req, res) => {
         page: response.data.page
       });
     })
-    .catch(error => res.status(500).send(error));
+    .catch(error => res.status(500).send(error.response.data.status_message));
 });
 
 module.exports = Router;
