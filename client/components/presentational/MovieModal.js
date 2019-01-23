@@ -1,38 +1,26 @@
-import React from 'react'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import './MovieModal.css';
 
 const MovieModal = (props) => {
     console.log(props);
     const {title, overview, vote_average, release_date, backdrop_path} = props;
-    
-    const style = {
-        display: "block",
-        marginLeft: "auto",
-        marginRight: "auto"
-    }
 
-    const modalStyle = {
-            backgroundColor: "black",
-            margin: "1em",
-            boxShadow: "0 4px 100px 0 rgba(255, 255, 255, 0.5), 0 6px 20px 0 rgba(255, 255, 255, 0.3)"
-        }
-    
-    const infoStyle = {
-        backgroundColor:"black", 
-        color: "white", 
-        textAlign: "center",
-        borderBottom: "1px solid white",
-        paddingBottom: "8px"
-    }
-    
     return (
-        <Modal size="small" style={modalStyle} trigger={<Button style={{backgroundColor: "white"}}>Info</Button>}>
-            <Modal.Header style={{backgroundColor:"black", color:"white", textAlign:"center"}}>{title}</Modal.Header>
+        <Modal id="modal" size="small" trigger={<Button style={{backgroundColor: "white"}}>More Info</Button>}>
+            <Modal.Header id="movie-title">{title}</Modal.Header>
             <Image  size="massive" fluid="true" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
-            <Header style={infoStyle}>Rating: {vote_average} Release: {release_date}</Header>
+            <Header id="movie-info">
+                 <div>
+                    <img id="star" src="https://img.icons8.com/nolan/64/000000/star.png"  />
+                    {vote_average}
+
+                    <img id="calendar" src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png"  />
+                    <span id="release-date">{release_date}</span>
+                </div></Header>
         
             <Modal.Description>
-                <p style={{color:"white", textAlign:"center", fontSize: "20px", margin: "1em"}}>{overview}</p>
+                <p id="overview">{overview}</p>
             </Modal.Description>
 
         </Modal>
