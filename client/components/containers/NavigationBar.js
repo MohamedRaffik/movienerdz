@@ -1,10 +1,23 @@
+/*
+  Navigation Bar component 
+  Performs Axios calls to the backend server when the user searchs by title or by genre
+  Upon mounting a list of genres are retrieved from the backend server to give options to the user [Stored in genres]
+  States:
+    - keyword - search text in the input of the nav bar
+    - genre - array of genre ids that represent the genres that are selected by the user
+  Allows user to switch through filters
+    - Trending 
+    - Upcoming
+    - Top Rated
+    - Popular
+*/
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
-import { FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
 import { FILTER_ACTIONS } from '../../actions';
-const { SEARCH } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -55,12 +68,19 @@ class NavigationBar extends Component {
   }
 
   render() {
+    const filter_options = [
+      [ 'Show Trending Movies', TRENDING ],
+      [ 'Show Upcoming Movies', UPCOMING ],
+      [ 'Show Popular Movies', POPULAR ],
+      [ 'Show Top Rated Movies', TOP_RATED ]
+    ];
     const { genres } = this.state;
+    
     const GenreItems = genres.map((element) => {
       return { key: element.id, text: element.name, value: element.id };
     });
 
-    const FilterItems = FILTER_OPTIONS.map((element) => {
+    const FilterItems = filter_options.map((element) => {
       return { key: element[1], text: element[0], value: element[1] };
     });
 

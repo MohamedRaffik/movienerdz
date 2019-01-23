@@ -1,3 +1,7 @@
+/*
+  Connects MovieSwipe component to the Redux Store
+*/
+
 import { connect } from 'react-redux';
 import MovieSwipe from './MovieSwipe';
 

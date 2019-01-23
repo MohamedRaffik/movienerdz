@@ -1,3 +1,7 @@
+/*
+  Connects AppContainer to Redux Store
+*/
+
 import { connect } from 'react-redux';
 import { updateFeed } from './actions';
 import AppContainer from './AppContainer';

@@ -1,3 +1,13 @@
+/*
+  The entry point to the application
+  Makes the initial networks calls the populate the following feeds
+  - Trending   <- Array
+  - Popular      <- Json
+  - Upcoming       <- Json
+  - Now Playing    <- Json
+  - Top Rated     <- Json
+*/
+
 import React, { Component } from 'react';
 import { NavigationBarApp, FeedApp, MovieSwipeApp } from './components';
 import axios from 'axios';

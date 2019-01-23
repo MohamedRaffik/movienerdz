@@ -1,3 +1,7 @@
+/*
+  Connects Feed component to the Redux Store
+*/
+
 import { connect } from 'react-redux';
 import Feed from './Feed';
 

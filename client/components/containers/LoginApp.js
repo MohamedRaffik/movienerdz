@@ -1,3 +1,7 @@
+/*
+  Connects Login Component to Redux Store
+*/
+
 import { connect } from 'react-redux';
 import { loggedIn, loggedOut, signedUp } from '../../actions';
 import Login from './Login';

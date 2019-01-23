@@ -1,3 +1,15 @@
+/*
+  Action file for anything concerning the displays feeds
+  The feeds/results are :
+    Trending
+    Upcoming
+    Popular
+    Top Rated
+    Search
+    Watch Later list
+    Favorites list
+*/
+
 export const UPDATE_FEED = 'UPDATE_FEED';
 export const CHANGE_FILTER = 'CHANGE_FILTER';
 export const FILTER_ACTIONS = {

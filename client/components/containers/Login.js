@@ -1,3 +1,10 @@
+/*
+  Login Component
+  Is rendered within the Navigation Bar
+  - Is a Button pair when the user is not logged in
+  - Is Username with logout button when user is logged in
+*/
+
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 

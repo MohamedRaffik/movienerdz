@@ -1,9 +1,14 @@
+/*
+  Routes for App to retrieve data from TMDB database
+*/
+
 const axios = require('axios');
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config();    // Used to load variables from a .env file -> loads into process.env
 const API_KEY = process.env.API_KEY;
 const Router = require('express').Router();
 
 
+//Gets and sends Trending Movies [An array of 20 Json Objects]
 Router.get('/trending', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/trending/movies/week?api_key=${API_KEY}`)
     .then(response => {
@@ -12,6 +17,7 @@ Router.get('/trending', (req, res) => {
     .catch(error => res.status(500).send(error));
 });
 
+//Gets and sends list of all genres and genre ids
 Router.get('/genres', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
     .then(response => {
@@ -20,6 +26,7 @@ Router.get('/genres', (req, res) => {
     .catch(error => res.status(500).send(error));
 });
 
+//Gets a json with an array of genres that are used to find movies based on the combination of genres [Max of three genres]
 Router.post('/genres', (req, res) => {
   const genre_string = req.body.genres.toString().replace(',', '%2C').replace(',', '%2C');
   axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre_string}`)
@@ -33,6 +40,7 @@ Router.post('/genres', (req, res) => {
     .catch(error => console.error(error));
 })
 
+//Gets and sends a set of movie json objects based on a keyword entered by the user
 Router.get('/search/:keyword', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${req.params.keyword}&page=1&include_adult=false`)
     .then(response => {
@@ -45,7 +53,7 @@ Router.get('/search/:keyword', (req, res) => {
     .catch(error => res.status(500).send(error));
 });
 
-// route for: upcoming, top_rated, popular, now_playing, latest
+// Route to retrieve upcoming, top_rated, popular, now_playing, latest feeds, can also retrieve different pages of information
 Router.get('/:feed/:page', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/movie/${req.params.feed}?api_key=${API_KEY}&language=en-US&page=${req.params.page}&region=US`)
     .then(response => {

@@ -1,3 +1,7 @@
+/*
+  Connect Navigation Bar to Redux Store
+*/  
+
 import { connect } from 'react-redux';
 import { changeFilter, updateFeed } from '../../actions';
 import NavigationBar from './NavigationBar';

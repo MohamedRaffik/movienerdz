@@ -1,4 +1,9 @@
-import {Card, Image} from 'semantic-ui-react';
+/*
+	FeedItem is a card component that displays information for a single movie item
+	Used in the feed component
+*/
+
+import { Card, Image } from 'semantic-ui-react';
 import React from 'react';
 
 const FeedItem = (props) => {

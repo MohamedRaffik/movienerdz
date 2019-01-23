@@ -1,8 +1,13 @@
+/*
+	Presentational Component that shows a grid of FeedItems
+	Displays information based upon the filter given to show the appropiate feed
+*/
+
 import React from 'react';
 import FeedItem from './FeedItem';
 import { Grid, Segment } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
-const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 
 const Feed = (props) => {

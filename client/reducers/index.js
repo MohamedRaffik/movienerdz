@@ -1,4 +1,3 @@
-
 import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
 import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
@@ -8,15 +7,15 @@ const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER
 const initialState = {
   loggedIn: false,
   name: '',
-  watch_later: [],
+  watch_later: [],       
   favorites: [],
-  trending: [],
+  trending: [],                   //Json Data in form of {data: Array, page: int, total_pages: int}
   upcoming: {},
   popular: {},
   top_rated: {},
-  playing_now: {},
+  playing_now: {},      
   search: {},
-  filter: TRENDING
+  filter: TRENDING 
 };
 
 export default (state = initialState, action) => {
