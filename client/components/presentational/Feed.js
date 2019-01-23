@@ -67,7 +67,8 @@ const Feed = (props) => {
 	}
 	const style = {
 		margin: "0",
-		background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,1))"
+		background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,1))",
+		borderRadius: "0px"
 	}
 
 	return (
@@ -81,8 +82,8 @@ const Feed = (props) => {
 				</Grid.Row>
 			</Grid>
 			{feed.data ?
-				<Segment textAlign='center' inverted={true}>
-					<Button.Group >
+				<Segment textAlign='center' inverted={true}style={{background: "rgba(0,0,0,0)"}}>
+					<Button.Group>
 						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1 - page)} />
 						<Button disabled={page === 1} icon='angle left' onClick={() => ChangePage(-1)} />
 						<Button disabled={true}>{page}/{total_pages}</Button>

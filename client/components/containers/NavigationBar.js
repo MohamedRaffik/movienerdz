@@ -22,6 +22,7 @@ const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES }
 import { Genres } from '../constants';
 import Logo from '../../Images/mn1.png'
 
+
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +33,7 @@ class NavigationBar extends Component {
   }
 
 
-  LimitGenres = (event, element) => {
-    if (element.value.length > 3) element.value.length = 3;
-    this.setState({ genre: element.value });
-  }
+
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
     if (filter !== SEARCH) {
@@ -101,11 +99,17 @@ class NavigationBar extends Component {
       return { key: element[1], text: element[0], value: element[1] };
     });
 
+    const style = {
+      borderRadius: "0px",
+      opacity: .9,
+      backgroundColor: "black",
+      background: "linear-gradient(to left, rgba(24, 24, 24, 0.9 ), rgba(0,0,0,1))"
+    }
     return (
-      <Sticky>
-        <Menu inverted={true} size="small" borderless={true}>
+      <Sticky active={true}>
+        <Menu inverted={true} size="small" borderless={true} style={style}>
           <Menu.Item>
-            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }}></Image>
+            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }} href='/'></Image>
           </Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>

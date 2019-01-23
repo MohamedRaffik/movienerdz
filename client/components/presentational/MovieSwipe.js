@@ -4,7 +4,6 @@ import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 import MovieModal from './MovieModal';
 import './MovieSwipe.css';
 
-
 const Arrow = ({ direction, clickFunction, glyph }) => (
   <div
     className={`slide-arrow ${direction}`}
@@ -24,7 +23,7 @@ const ImageSlide = (props) => {
   const releaseDate = props.data.release_date;
   const title = props.data.name ? props.data.name : props.data.title;
   const rating = props.data.vote_average;
-
+  console.log(props.data)
   const { overview, release_date, backdrop_path, vote_average } = props.data;
 
   const formatDate = (date) => {
@@ -45,7 +44,7 @@ const ImageSlide = (props) => {
           <span id="release-date">{formatDate(releaseDate)}</span>
         </div>
         <br></br>
-        <MovieModal title={title} overview={overview} release_date={formatDate(release_date)} backdrop_path={backdrop_path} vote_average={vote_average} />
+        <MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
       </div>
     </div>
   );
@@ -57,22 +56,28 @@ class MovieSwipe extends Component {
     this.state = {
       index: 0
     };
+    this.interval= 0;
   }
 
+  //Set tick interval for slides
   componentDidMount() {
-    setInterval(() => this.NextSlide(), 4000);
+    this.interval = setInterval(() => this.NextSlide(), 4000);
   }
 
   PreviousSlide = () => {
     const playing_now = this.props.playing_now.data;
     const index = this.state.index === 0 ? playing_now.length - 1 : this.state.index - 1;
     this.setState({ index: index });
+    clearInterval(this.interval);
+    this.interval=setInterval(() => this.NextSlide(), 4000);
   }
 
   NextSlide = () => {
     const playing_now = this.props.playing_now.data;
     const index = this.state.index === playing_now.length - 1 ? 0 : this.state.index + 1;
     this.setState({ index: index });
+    clearInterval(this.interval);
+    this.interval=setInterval(() => this.NextSlide(), 4000);
   }
 
   render() {
@@ -82,7 +87,7 @@ class MovieSwipe extends Component {
       !playing_now ?
         <Segment>
           <Dimmer active>
-            <Loader size='large'>Loading</Loader>
+            <Loader size='large'>Downloading RAM</Loader>
           </Dimmer>
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />

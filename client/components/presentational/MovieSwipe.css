@@ -1,7 +1,7 @@
 .carousel {
   height: 700px;
   position: relative;
-  box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.5), 0 6px 20px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 2px -2px grey;
 }
 
 .image-slide {

@@ -6,6 +6,7 @@ module.exports = (db, Sequelize) => {
     password: { type: Sequelize.STRING, allowNull: false },
     favorites: { type: Sequelize.JSON },
     watchLater: { type: Sequelize.JSON }
+
   })
 
 }
