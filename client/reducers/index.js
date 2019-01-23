@@ -17,6 +17,7 @@ const initialState = {
   search: {},
   keyword: '',
   genres: [],
+  genre_labels: [],
   filter: TRENDING 
 };
 
@@ -34,6 +35,8 @@ export default (state = initialState, action) => {
       newState.favorites = action.favorites;
       return newState;
     case LOGGED_OUT:
+      newState.loggedIn = false;
+      newState.name = '';
       return initialState;
     case ADD_FAVORITE:
       newState.favorites = [...newState.favorites, action.data]
@@ -61,6 +64,7 @@ export default (state = initialState, action) => {
       return newState;
     case UPDATE_GENRE:
       newState.genres = action.genres;
+      newState.genre_labels = action.genre_labels;
       return newState;
     default:
       return state;

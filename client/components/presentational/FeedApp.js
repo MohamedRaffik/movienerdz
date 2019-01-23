@@ -10,6 +10,7 @@ const MapStateToProps = (state, ownProps) => {
   return {
     filter: state.filter,
     genres: state.genres,
+    genre_labels: state.genre_labels,
     keyword: state.keyword,
     trending: state.trending,
     upcoming: state.upcoming,

@@ -27,7 +27,7 @@ const ImageSlide = (props) => {
 
   const { overview, release_date, backdrop_path, vote_average } = props.data;
 
-  var formatDate = (date) => {
+  const formatDate = (date) => {
     let newDate = date.replace('-', '/').replace('-', '/');
     newDate = newDate.slice(5, 10) + '/' + newDate.slice(0, 4);
     return newDate;

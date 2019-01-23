@@ -57,7 +57,7 @@ class NavigationBar extends Component {
   Search = () => {
     const { onUpdateFeed, onChangeFilter, onUpdateKeyword, onUpdateGenre } = this.props;
     const keyword = (this.state.keyword !== '') ? this.state.keyword : ' ';
-    onUpdateGenre([]);
+    onUpdateGenre([], []);
     onUpdateKeyword(keyword);
     axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
@@ -72,7 +72,11 @@ class NavigationBar extends Component {
     if (element.value.length === 0) return;
     else if (element.value.length >= 3) element.value.length = 3;
     this.setState({ genre: element.value }, () => {
-      onUpdateGenre(this.state.genre);
+      let genre_keywords = []
+      this.state.genres.map((element) => {
+        if (this.state.genre.indexOf(element.id) > -1) genre_keywords.push(element.name);
+      });
+      onUpdateGenre(this.state.genre, genre_keywords);
       axios.post('/api/moviedata/genres/1', {
         genres: this.state.genre
       })
@@ -102,7 +106,7 @@ class NavigationBar extends Component {
     });
 
     return (
-      <Sticky offset='5'>
+      <Sticky>
         <Menu inverted={true} size="small" borderless={true}>
         <Menu.Item>
         <Image src={Logo} style={{height: "700", width: "150px", marginLeft:"50px"}}></Image>  
