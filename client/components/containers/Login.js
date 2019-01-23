@@ -34,7 +34,7 @@ class Login extends Component {
       .then(res => {
         const { onLoggedIn } = this.props;
         const { data } = res;
-        onLogged(data.username, (data.watch_later.length === null) ? data.watch_later : [], (data.favorites.length === null) ? data.favorites : []);
+        onLoggedIn(data.username, (data.watch_later.length === null) ? data.watch_later : [], (data.favorites.length === null) ? data.favorites : []);
       })
       .catch(err => console.error(err));
   }
