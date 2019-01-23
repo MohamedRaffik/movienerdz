@@ -12,6 +12,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, `client/${PATH_DIR}/index.html`))
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  console.error(err.stack);
+  res.status(err.status).send(err.message);
+});
+
 app.listen(3000, () => {
   console.log('Listening on Port 3000');
 })
