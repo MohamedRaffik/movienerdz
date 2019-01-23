@@ -11,18 +11,14 @@ const Router = require('express').Router();
 //Gets and sends Trending Movies [An array of 20 Json Objects]
 Router.get('/trending', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/trending/movies/week?api_key=${API_KEY}`)
-    .then(response => {
-      res.send(response.data.results);
-    })
+    .then(response => res.send(response.data.results))
     .catch(error => res.status(500).send(error));
 });
 
 //Gets and sends list of all genres and genre ids
 Router.get('/genres', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
-    .then(response => {
-      res.send(response.data.genres);
-    })
+    .then(response => res.send(response.data.genres))
     .catch(error => res.status(500).send(error));
 });
 
@@ -41,8 +37,8 @@ Router.post('/genres', (req, res) => {
 })
 
 //Gets and sends a set of movie json objects based on a keyword entered by the user
-Router.get('/search/:keyword', (req, res) => {
-  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${req.params.keyword}&page=1&include_adult=false`)
+Router.get('/search/:keyword/:page', (req, res) => {
+  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${req.params.keyword}&page=${req.params.page}&include_adult=false`)
     .then(response => {
       res.json({
         data: response.data.results,

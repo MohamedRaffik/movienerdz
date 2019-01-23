@@ -1,6 +1,6 @@
 import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
-import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
+import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS, UPDATE_KEYWORD } from '../actions';
 
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
@@ -15,6 +15,7 @@ const initialState = {
   top_rated: {},
   playing_now: {},      
   search: {},
+  keyword: '',
   filter: TRENDING 
 };
 
@@ -54,6 +55,9 @@ export default (state = initialState, action) => {
     case CHANGE_FILTER:
       newState.filter = action.filter;
       return newState
+    case UPDATE_KEYWORD:
+      newState.keyword = action.keyword;
+      return newState;
     default:
       return state;
   };

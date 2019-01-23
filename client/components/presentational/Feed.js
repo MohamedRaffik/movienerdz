@@ -1,27 +1,48 @@
 /*
 	Presentational Component that shows a grid of FeedItems
-	Displays information based upon the filter given to show the appropiate feed
+	Displays information based upon the filter given to show the appropriate feed
+	Allows for users to traverse through pages of results
 */
 
 import React from 'react';
 import FeedItem from './FeedItem';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid, Segment, Button } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
+import axios from 'axios';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 
 const Feed = (props) => {
-	let results = [];
+	let feed = [];
 	const filter = props.filter;
-	if (filter === TRENDING) results = props.trending;
-	else if (filter === UPCOMING) results = props.upcoming.data;
-	else if (filter === POPULAR) results = props.popular.data;
-	else if (filter === TOP_RATED) results = props.top_rated.data;
-	else if (filter === SEARCH) results = props.search.data;
-	
-	const items = results.map((element, index) => 
+	if (filter === TRENDING) feed = props.trending;
+	else if (filter === UPCOMING) feed = props.upcoming;
+	else if (filter === POPULAR) feed = props.popular;
+	else if (filter === TOP_RATED) feed = props.top_rated;
+	else if (filter === SEARCH) feed = props.search;
+
+	const default_state = { page: 0, total_pages: 0, data: feed }
+	const { page, total_pages, data } = (feed.data) ? feed : default_state;
+
+	const items = data.map((element, index) =>
 		<FeedItem key={index} data={element} />
 	);
+
+	const ChangePage = (number) => {
+		const { onUpdateFeed, keyword } = props;
+		const feeds = [
+			[TRENDING, 'trending'],
+			[UPCOMING, 'upcoming'],
+			[TOP_RATED, 'top_rated'],
+			[POPULAR, 'popular'],
+		];
+		let feed;
+		feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
+		const url = (filter === SEARCH) ? `api/moviedata/search/${keyword}/${page + number}` : `/api/moviedata/${feed}/${page + number}`;
+		axios.get(url)
+			.then(res => onUpdateFeed(filter, res.data))
+			.catch(err => console.error(err));
+	}
 
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
@@ -33,6 +54,17 @@ const Feed = (props) => {
 					{items}
 				</Grid.Row>
 			</Grid>
+			{feed.data ?
+				<Segment textAlign='center' inverted={true}>
+					<Button.Group >
+						<Button disabled={page === 1} icon='left arrow' onClick={() => ChangePage(-1)} />
+						<Button disabled={true}>{page}</Button>
+						<Button disabled={page === total_pages} icon='right arrow' onClick={() => ChangePage(1)} />
+					</Button.Group>
+				</Segment>
+				:
+				null
+			}
 		</Segment>
 	);
 }

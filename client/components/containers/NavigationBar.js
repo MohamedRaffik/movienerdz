@@ -17,7 +17,7 @@ import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
 import { FILTER_ACTIONS } from '../../actions';
-const { TRENDING, UPCOMING, POPULAR, TOP_RATED, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -31,20 +31,33 @@ class NavigationBar extends Component {
 
   componentDidMount() {
     axios.get('/api/moviedata/genres')
-      .then(res => {
-        this.setState({ genres: res.data })
-      })
+      .then(res => this.setState({ genres: res.data }))
       .catch(err => console.error(err));
   }
 
   ChangeFilter = (event, element) => {
+    const { filter, onUpdateFeed } = this.props;
+    if (filter !== SEARCH) {
+      const feeds = [
+        [TRENDING, 'trending'],
+        [UPCOMING, 'upcoming'],
+        [TOP_RATED, 'top_rated'],
+        [POPULAR, 'popular'],
+      ];
+      let feed;
+      feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
+      axios.get(`/api/moviedata/${feed}/1`)
+        .then(res => onUpdateFeed(filter, res.data))
+        .catch(err => console.log(err));
+    }
     this.props.onChangeFilter(element.value);
   }
 
   Search = () => {
-    const { onUpdateFeed, onChangeFilter } = this.props;
+    const { onUpdateFeed, onChangeFilter, onUpdateKeyword } = this.props;
     const { keyword } = this.state;
-    axios.get(`/api/moviedata/search/${keyword}`)
+    onUpdateKeyword(keyword);
+    axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
         onUpdateFeed(SEARCH, res.data);
         onChangeFilter(SEARCH);
@@ -69,13 +82,13 @@ class NavigationBar extends Component {
 
   render() {
     const filter_options = [
-      [ 'Show Trending Movies', TRENDING ],
-      [ 'Show Upcoming Movies', UPCOMING ],
-      [ 'Show Popular Movies', POPULAR ],
-      [ 'Show Top Rated Movies', TOP_RATED ]
+      ['Show Trending Movies', TRENDING],
+      ['Show Upcoming Movies', UPCOMING],
+      ['Show Popular Movies', POPULAR],
+      ['Show Top Rated Movies', TOP_RATED]
     ];
     const { genres } = this.state;
-    
+
     const GenreItems = genres.map((element) => {
       return { key: element.id, text: element.name, value: element.id };
     });
@@ -91,7 +104,7 @@ class NavigationBar extends Component {
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown
-                defaultValue={FILTER_OPTIONS[0][1]}
+                defaultValue={filter_options[0][1]}
                 onChange={this.ChangeFilter}
                 selection={true}
                 button={true}

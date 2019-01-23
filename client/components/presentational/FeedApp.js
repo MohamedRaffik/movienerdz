@@ -4,10 +4,12 @@
 
 import { connect } from 'react-redux';
 import Feed from './Feed';
+import { updateFeed } from '../../actions';
 
-const maptStateToProps = (state, ownProps) => {
+const MapStateToProps = (state, ownProps) => {
   return {
     filter: state.filter,
+    keyword: state.keyword,
     trending: state.trending,
     upcoming: state.upcoming,
     popular: state.popular,
@@ -15,10 +17,15 @@ const maptStateToProps = (state, ownProps) => {
     search: state.search,
     favorites: state.favorites,
     watch_later: state.watch_later,
-    loggedIn: state.loggedIn
   };
 }
 
-const FeedApp = connect(maptStateToProps)(Feed);
+const MapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onUpdateFeed: (type, data) => dispatch(updateFeed(type, data))
+  }
+}
+
+const FeedApp = connect(MapStateToProps, MapDispatchToProps)(Feed);
 
 export default FeedApp;
