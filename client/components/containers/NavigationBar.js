@@ -31,11 +31,11 @@ class NavigationBar extends Component {
     };
   }
 
-<<<<<<< HEAD
+
   LimitGenres = (event, element) => {
     if (element.value.length > 3) element.value.length = 3;
     this.setState({ genre: element.value });
-=======
+  }
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
     if (filter !== SEARCH) {
@@ -82,7 +82,7 @@ class NavigationBar extends Component {
         })
         .catch(err => console.error(err));
     });
->>>>>>> master
+
   }
 
   render() {
