@@ -16,10 +16,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon, Form, Image } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
+
 import { FILTER_ACTIONS } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 import { Genres } from '../constants';
 import Logo from '../../Images/mn1.png'
+
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class NavigationBar extends Component {
       genre: [],
     };
   }
+
 
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
@@ -76,6 +79,7 @@ class NavigationBar extends Component {
         })
         .catch(err => console.error(err));
     });
+
   }
 
   render() {

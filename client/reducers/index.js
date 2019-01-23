@@ -48,6 +48,7 @@ export default (state = initialState, action) => {
     case REMOVE_WATCH_LATER:  ///UPDATE
       return newState;
     case UPDATE_FEED:
+      
       if (action.feed_type === TRENDING) newState.trending = action.data
       else if (action.feed_type === UPCOMING) newState.upcoming = action.data
       else if (action.feed_type === POPULAR) newState.popular = action.data

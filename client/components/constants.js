@@ -19,3 +19,4 @@ export const Genres = [
   { id: 10752, name: "War" },
   { id: 37, name: "Western" },
 ]
+
