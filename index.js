@@ -26,9 +26,6 @@ const axios = require('axios')
 // TOP_RATED &
 // LATEST &
 // SEARCH &
-const baseURL = "https://api.themoviedb.org/3";
-const API_KEY = "?api_key=b6bbbb876524fb068f4abcc95fa67e9f";
-
 
 app.use(express.json());
 app.use('/api', api);
