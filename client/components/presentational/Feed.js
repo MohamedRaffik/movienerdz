@@ -65,9 +65,13 @@ const Feed = (props) => {
 		else if (filter === SEARCH) new_filter += (genres.length === 0) ? `by Keyword: ${keyword}` : ` by Genre: ${genre_string}`
 		return new_filter
 	}
+	const style = {
+		margin: "0",
+		background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,1))"
+	}
 
 	return (
-		<Segment inverted={true} style={{ "margin": "0" }}>
+		<Segment id="segment" inverted={true} style={style}>
 			<Grid relaxed={true} padded={true}>
 				<Grid.Row style={{ "marginLeft": "2em" }}>
 					<h2>{filterDisplay(props.filter)}</h2>

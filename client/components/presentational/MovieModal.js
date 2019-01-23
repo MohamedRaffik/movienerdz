@@ -7,7 +7,6 @@ class MovieModal extends Component {
     constructor(props){
         super(props);
     }
-    
 /* Current bug: Movie Slideshow always rendering for first movie bumble bee regardless of movie slide
     //If new props are passed prevent rerender of modal
     shouldComponentUpdate(nextProps, nextState) {
@@ -19,7 +18,7 @@ class MovieModal extends Component {
         const {title, overview, vote_average, release_date, backdrop_path} = this.props;
 
         return (
-            <Modal id="modal" size="small" trigger={<Button style={{backgroundColor: "white"}}>More Info</Button>}>
+            <Modal id="modal" size="small" trigger={<Button style={{backgroundColor: "rgba(255,255,255,.0)", color:"white", fontWeight:"bold" }}>More Info</Button>}>
                 <Modal.Header id="movie-title">{title}</Modal.Header>
                 <Image  size="massive" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
                 <Header id="movie-info">
