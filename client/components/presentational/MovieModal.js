@@ -10,13 +10,8 @@ class MovieModal extends Component {
             isOpen: false
         }
     }
-/* Current bug: Movie Slideshow always rendering for first movie bumble bee regardless of movie slide
-    //If new props are passed prevent rerender of modal
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps !== this.props) return false;
-        else return true;
-    }
-*/
+
+    //When the modal is open prevent rerender when passed new props
     shouldComponentUpdate(nextProps, nextState) {
         if (this.state.isOpen) {
             if (nextProps !== this.props) return false;
@@ -32,6 +27,7 @@ class MovieModal extends Component {
         return newDate;
     }
 
+    //Change the state to determine if modal is open
     modalStateChange = () => {
         this.setState({isOpen: !this.state.isOpen});
     }

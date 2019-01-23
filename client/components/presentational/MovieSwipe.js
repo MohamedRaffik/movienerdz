@@ -4,7 +4,6 @@ import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react';
 import MovieModal from './MovieModal';
 import './MovieSwipe.css';
 
-
 const Arrow = ({ direction, clickFunction, glyph }) => (
   <div
     className={`slide-arrow ${direction}`}
@@ -60,6 +59,7 @@ class MovieSwipe extends Component {
     this.interval= 0;
   }
 
+  //Set tick interval for slides
   componentDidMount() {
     this.interval = setInterval(() => this.NextSlide(), 4000);
   }
