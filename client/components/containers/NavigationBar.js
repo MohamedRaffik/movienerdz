@@ -12,13 +12,6 @@ class NavigationBar extends Component {
     };
   }
 
-<<<<<<< HEAD
-=======
-  ChangeFilter = (event, element) => {
-    this.props.onChangeFilter(element.value);
-  }
->>>>>>> c495b668532821d0f28e8e6f0dee48bd23848d9c
-
   LimitGenres = (event, element) => {
     if (element.value.length > 3) element.value.length = 3;
     this.setState({ genre: element.value });

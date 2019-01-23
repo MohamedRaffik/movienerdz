@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 var passport = require('passport');
-import User from '../models/User';
+// import User from '../models/User';
+const User = require('../models/User').User;
+console.log("hello world",User);
 
 passport.use(new LocalStrategy((username,password,done)=>{
 	User.findOne({
@@ -23,5 +25,5 @@ passport.use(new LocalStrategy((username,password,done)=>{
 	})
 	
 }))
-
-export default passport;
+modules.exports = passport;
+// export default passport;
