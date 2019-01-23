@@ -7,4 +7,5 @@ module.exports = (db, Sequelize) => {
     favorites: { type: Sequelize.JSON },
     watchLater: { type: Sequelize.JSON }
   })
+
 }
