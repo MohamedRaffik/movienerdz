@@ -4,28 +4,6 @@ const app = express();
 const api = require('./routes');
 const PATH_DIR = process.env.NODE_ENV === 'production' ? 'build' : 'public';
 
-
-//auth
-// SIGNED_UP
-// LOGin 
-// LOGGED_OUT
-
-//querying db
-// ADD_FAVORITE
-// REMOVE_FAVORITE
-// ADD_WATCH_LATER
-// REMOVE_WATCH_LATER
-// WATCH_LATER
-// FAVORITES
-
-//hitting our endpoint
-// trendingWeek &
-// UPCOMING & 
-// POPULAR &
-// TOP_RATED &
-// LATEST &
-// SEARCH &
-
 app.use(express.json());
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, `client/${PATH_DIR}`)));
