@@ -1,9 +1,4 @@
-/*
-	Presentational Component that shows a grid of FeedItems
-	Displays information based upon the filter given to show the appropriate feed
-	Allows for users to traverse through pages of results
-*/
-
+//Feed component to display movie results based on sorting
 import React from 'react';
 import FeedItem from './FeedItem';
 import { Grid, Segment, Button } from 'semantic-ui-react';
@@ -29,26 +24,46 @@ const Feed = (props) => {
 	);
 
 	const ChangePage = (number) => {
-		const { onUpdateFeed, keyword } = props;
+		const { onUpdateFeed, keyword, genres } = props;
 		const feeds = [
 			[TRENDING, 'trending'],
 			[UPCOMING, 'upcoming'],
 			[TOP_RATED, 'top_rated'],
 			[POPULAR, 'popular'],
 		];
-		let feed;
-		feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
-		const url = (filter === SEARCH) ? `api/moviedata/search/${keyword}/${page + number}` : `/api/moviedata/${feed}/${page + number}`;
-		axios.get(url)
-			.then(res => onUpdateFeed(filter, res.data))
-			.catch(err => console.error(err));
+		if (filter === SEARCH && genres.length !== 0) {
+			axios.post(`/api/moviedata/genres/${page + number}`, {
+				genres
+			})
+				.then(res => onUpdateFeed(SEARCH, res.data))
+				.catch(err => console.error(err));
+		}
+		else {
+			let feed;
+			feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
+			const url = (filter === SEARCH) ? `api/moviedata/search/${keyword}/${page + number}` : `/api/moviedata/${feed}/${page + number}`;
+			axios.get(url)
+				.then(res => onUpdateFeed(filter, res.data))
+				.catch(err => console.error(err));
+		}
+	}
+
+	//Removes '_' from the filter to display
+	const filterDisplay = (filter) => {
+		const { genres, genre_labels, keyword } = props;
+		let new_filter = filter.toLowerCase();
+		new_filter = new_filter.replace(new_filter[0], new_filter[0].toUpperCase());
+		if (filter === TOP_RATED) new_filter = 'Top Rated'
+		if (filter === SEARCH && genres.length === 0) new_filter += ` by Keyword : '${keyword}'`
+		else if (filter === SEARCH && genres.length !== 0) new_filter += ` by Genres : ${genre_labels.toString().replace(',', ', ').replace(',',', ')}`
+		return new_filter
 	}
 
 	return (
 		<Segment inverted={true} style={{ "margin": "0" }}>
 			<Grid relaxed={true} padded={true}>
 				<Grid.Row style={{ "marginLeft": "2em" }}>
-					<h2>Results:</h2>
+					<h2>{filterDisplay(props.filter)}</h2>
 				</Grid.Row>
 				<Grid.Row centered={true}>
 					{items}
@@ -57,9 +72,11 @@ const Feed = (props) => {
 			{feed.data ?
 				<Segment textAlign='center' inverted={true}>
 					<Button.Group >
-						<Button disabled={page === 1} icon='left arrow' onClick={() => ChangePage(-1)} />
-						<Button disabled={true}>{page}</Button>
-						<Button disabled={page === total_pages} icon='right arrow' onClick={() => ChangePage(1)} />
+						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1 - page)} />
+						<Button disabled={page === 1} icon='angle left' onClick={() => ChangePage(-1)} />
+						<Button disabled={true}>{page}/{total_pages}</Button>
+						<Button disabled={page === total_pages} icon='angle right' onClick={() => ChangePage(1)} />
+						<Button disabled={page === total_pages} icon='angle double right' onClick={() => ChangePage(total_pages - page)} />
 					</Button.Group>
 				</Segment>
 				:

@@ -1,6 +1,6 @@
 import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
-import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS, UPDATE_KEYWORD } from '../actions';
+import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS, UPDATE_KEYWORD, UPDATE_GENRE } from '../actions';
 
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
@@ -16,6 +16,8 @@ const initialState = {
   playing_now: {},      
   search: {},
   keyword: '',
+  genres: [],
+  genre_labels: [],
   filter: TRENDING 
 };
 
@@ -33,6 +35,8 @@ export default (state = initialState, action) => {
       newState.favorites = action.favorites;
       return newState;
     case LOGGED_OUT:
+      newState.loggedIn = false;
+      newState.name = '';
       return initialState;
     case ADD_FAVORITE:
       newState.favorites = [...newState.favorites, action.data]
@@ -57,6 +61,10 @@ export default (state = initialState, action) => {
       return newState
     case UPDATE_KEYWORD:
       newState.keyword = action.keyword;
+      return newState;
+    case UPDATE_GENRE:
+      newState.genres = action.genres;
+      newState.genre_labels = action.genre_labels;
       return newState;
     default:
       return state;

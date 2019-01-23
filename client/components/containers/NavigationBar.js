@@ -14,10 +14,11 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
+import { Menu, Dropdown, Sticky, Input, Icon, Form, Image } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
-import { FILTER_ACTIONS } from '../../actions';
+import { FILTER_ACTIONS, updateGenre } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+import Logo from '../../Images/mn1.png'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -54,8 +55,9 @@ class NavigationBar extends Component {
   }
 
   Search = () => {
-    const { onUpdateFeed, onChangeFilter, onUpdateKeyword } = this.props;
-    const { keyword } = this.state;
+    const { onUpdateFeed, onChangeFilter, onUpdateKeyword, onUpdateGenre } = this.props;
+    const keyword = (this.state.keyword !== '') ? this.state.keyword : ' ';
+    onUpdateGenre([], []);
     onUpdateKeyword(keyword);
     axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
@@ -66,10 +68,16 @@ class NavigationBar extends Component {
   }
 
   SearchGenres = (event, element) => {
-    const { onUpdateFeed, onChangeFilter } = this.props;
-    if (element.value.length >= 3) element.value.length = 3;
+    const { onUpdateFeed, onChangeFilter, onUpdateGenre } = this.props;
+    if (element.value.length === 0) return;
+    else if (element.value.length >= 3) element.value.length = 3;
     this.setState({ genre: element.value }, () => {
-      axios.post('/api/moviedata/genres', {
+      let genre_keywords = []
+      this.state.genres.map((element) => {
+        if (this.state.genre.indexOf(element.id) > -1) genre_keywords.push(element.name);
+      });
+      onUpdateGenre(this.state.genre, genre_keywords);
+      axios.post('/api/moviedata/genres/1', {
         genres: this.state.genre
       })
         .then(res => {
@@ -100,7 +108,9 @@ class NavigationBar extends Component {
     return (
       <Sticky>
         <Menu inverted={true} size="small" borderless={true}>
-          <Menu.Item as="h1">MovieNerdz</Menu.Item>
+          <Menu.Item>
+            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }}></Image>
+          </Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown
@@ -123,11 +133,15 @@ class NavigationBar extends Component {
               </Dropdown>
             </Menu.Item>
             <Menu.Item>
-              <Input
-                icon={<Icon name="search" link={true} onClick={this.Search} />}
-                onChange={(event, element) => this.setState({ keyword: element.value })}
-                placeholder="Enter Keyword"
-              />
+              <Form onSubmit={this.Search}>
+                <Form.Field>
+                  <Input
+                    icon={<Icon name="search" link={true} onClick={this.Search} />}
+                    onChange={(event, element) => this.setState({ keyword: element.value })}
+                    placeholder="Enter Keyword"
+                  />
+                </Form.Field>
+              </Form>
             </Menu.Item>
             <Menu.Item>
               <LoginApp />
