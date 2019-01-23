@@ -17,7 +17,6 @@ const initialState = {
   search: {},
   keyword: '',
   genres: [],
-  genre_labels: [],
   filter: TRENDING 
 };
 
@@ -64,7 +63,6 @@ export default (state = initialState, action) => {
       return newState;
     case UPDATE_GENRE:
       newState.genres = action.genres;
-      newState.genre_labels = action.genre_labels;
       return newState;
     default:
       return state;
