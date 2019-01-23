@@ -1,27 +1,27 @@
-
 import { SIGNED_UP, LOGGED_IN, LOGGED_OUT } from '../actions';
 import { ADD_FAVORITE, REMOVE_FAVORITE, ADD_WATCH_LATER, REMOVE_WATCH_LATER } from '../actions';
-import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS } from '../actions';
+import { UPDATE_FEED, CHANGE_FILTER, FILTER_ACTIONS, UPDATE_KEYWORD } from '../actions';
 
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, PLAYING_NOW, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 const initialState = {
-  loggedIn: false,   
-  name: '',          
-  watch_later: [],   
-  favorites: [],    
-  trending: [],      
-  upcoming: {},      
-  popular: {},       
-  top_rated: {},     
-  playing_now: {},  
-  search: {},        
-  filter: TRENDING   
+  loggedIn: false,
+  name: '',
+  watch_later: [],       
+  favorites: [],
+  trending: [],                   //Json Data in form of {data: Array, page: int, total_pages: int}
+  upcoming: {},
+  popular: {},
+  top_rated: {},
+  playing_now: {},      
+  search: {},
+  keyword: '',
+  filter: TRENDING 
 };
 
 export default (state = initialState, action) => {
-  let newState = {...state};
-  switch(action.type) {
+  let newState = { ...state };
+  switch (action.type) {
     case SIGNED_UP:
       newState.loggedIn = true;
       newState.name = action.username;
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
       newState.loggedIn = true;
       newState.name = action.username;
       newState.watch_later = action.watch_later;
-      newState.favorites = action.favorites; 
+      newState.favorites = action.favorites;
       return newState;
     case LOGGED_OUT:
       return initialState;
@@ -55,6 +55,9 @@ export default (state = initialState, action) => {
     case CHANGE_FILTER:
       newState.filter = action.filter;
       return newState
+    case UPDATE_KEYWORD:
+      newState.keyword = action.keyword;
+      return newState;
     default:
       return state;
   };

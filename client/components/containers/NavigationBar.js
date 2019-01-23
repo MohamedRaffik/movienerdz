@@ -1,10 +1,23 @@
+/*
+  Navigation Bar component 
+  Performs Axios calls to the backend server when the user searchs by title or by genre
+  Upon mounting a list of genres are retrieved from the backend server to give options to the user [Stored in genres]
+  States:
+    - keyword - search text in the input of the nav bar
+    - genre - array of genre ids that represent the genres that are selected by the user
+  Allows user to switch through filters
+    - Trending 
+    - Upcoming
+    - Top Rated
+    - Popular
+*/
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Dropdown, Sticky, Input, Icon } from 'semantic-ui-react';
-import { GENRE_OPTIONS, FILTER_OPTIONS } from '../constants';
 import LoginApp from './LoginApp';
 import { FILTER_ACTIONS } from '../../actions';
-const { SEARCH } = FILTER_ACTIONS;
+const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -12,36 +25,76 @@ class NavigationBar extends Component {
     this.state = {
       keyword: '',
       genre: [],
+      genres: []
     };
   }
 
+  componentDidMount() {
+    axios.get('/api/moviedata/genres')
+      .then(res => this.setState({ genres: res.data }))
+      .catch(err => console.error(err));
+  }
+
   ChangeFilter = (event, element) => {
+    const { filter, onUpdateFeed } = this.props;
+    if (filter !== SEARCH) {
+      const feeds = [
+        [TRENDING, 'trending'],
+        [UPCOMING, 'upcoming'],
+        [TOP_RATED, 'top_rated'],
+        [POPULAR, 'popular'],
+      ];
+      let feed;
+      feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
+      axios.get(`/api/moviedata/${feed}/1`)
+        .then(res => onUpdateFeed(filter, res.data))
+        .catch(err => console.log(err));
+    }
     this.props.onChangeFilter(element.value);
   }
 
   Search = () => {
-    const { onUpdateFeed, onChangeFilter } = this.props;
+    const { onUpdateFeed, onChangeFilter, onUpdateKeyword } = this.props;
     const { keyword } = this.state;
-    axios.get(`/api/moviedata/search/${keyword}`)
-    .then(res => {
-      onUpdateFeed(SEARCH, res.data);
-      onChangeFilter(SEARCH);
-    })
-    .catch(err => console.error(err));
+    onUpdateKeyword(keyword);
+    axios.get(`/api/moviedata/search/${keyword}/1`)
+      .then(res => {
+        onUpdateFeed(SEARCH, res.data);
+        onChangeFilter(SEARCH);
+      })
+      .catch(err => console.error(err));
   }
 
-  LimitGenres = (event, element) => {
-    if (element.value.length > 3) element.value.length = 3;
-    this.setState({ genre: element.value });
+  SearchGenres = (event, element) => {
+    const { onUpdateFeed, onChangeFilter } = this.props;
+    if (element.value.length >= 3) element.value.length = 3;
+    this.setState({ genre: element.value }, () => {
+      axios.post('/api/moviedata/genres', {
+        genres: this.state.genre
+      })
+        .then(res => {
+          onUpdateFeed(SEARCH, res.data);
+          onChangeFilter(SEARCH);
+        })
+        .catch(err => console.error(err));
+    });
   }
 
   render() {
-    const GenreItems = GENRE_OPTIONS.map((element) => {
-      return { key: element, text: element, value: element };
+    const filter_options = [
+      ['Show Trending Movies', TRENDING],
+      ['Show Upcoming Movies', UPCOMING],
+      ['Show Popular Movies', POPULAR],
+      ['Show Top Rated Movies', TOP_RATED]
+    ];
+    const { genres } = this.state;
+
+    const GenreItems = genres.map((element) => {
+      return { key: element.id, text: element.name, value: element.id };
     });
 
-    const FilterItems = FILTER_OPTIONS.map((element) => {
-      return { key: element, text: element[0], value: element[1] };
+    const FilterItems = filter_options.map((element) => {
+      return { key: element[1], text: element[0], value: element[1] };
     });
 
     return (
@@ -51,7 +104,7 @@ class NavigationBar extends Component {
           <Menu.Item position="right">
             <Menu.Item>
               <Dropdown
-                defaultValue={FILTER_OPTIONS[0][1]}
+                defaultValue={filter_options[0][1]}
                 onChange={this.ChangeFilter}
                 selection={true}
                 button={true}
@@ -60,13 +113,12 @@ class NavigationBar extends Component {
             </Menu.Item>
             <Menu.Item>
               <Dropdown
-                text="Genres"
-                value={this.state.genre}
+                text="Search By Genres"
                 search={true}
                 selection={true}
                 clearable={true}
                 multiple={true}
-                onChange={this.LimitGenres}
+                onChange={this.SearchGenres}
                 options={GenreItems}>
               </Dropdown>
             </Menu.Item>
