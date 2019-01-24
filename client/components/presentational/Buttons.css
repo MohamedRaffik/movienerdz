@@ -1,0 +1,16 @@
+#heart, #clock {
+    filter: brightness(0) invert(1);
+    vertical-align: middle;
+    height: auto;
+    align-items: center;
+    top: -2px;
+    position: relative;
+    right: 3px;
+  }
+
+  #heart:hover, #clock:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    transition: ease-in .2s;
+  }
+  

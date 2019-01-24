@@ -7,6 +7,7 @@ import { Card, Image } from 'semantic-ui-react';
 import React from 'react';
 import MovieModal from './MovieModal';
 import ButtonsApp from './ButtonsApp';
+import './MovieModal.css';
 
 const FeedItem = (props) => {
 	const style = {
@@ -30,7 +31,7 @@ const FeedItem = (props) => {
 	const { loggedIn } = props;
 
 	return (
-		<Card style={style}>
+		<Card style={style} id="feed-item">
 			<Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
 			<Card.Content >
 				<Card.Header style={fontStyle}>{title}</Card.Header>

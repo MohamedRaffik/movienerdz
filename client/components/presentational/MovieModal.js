@@ -1,4 +1,6 @@
-//Modal component pop-up to display more information
+/*
+    Modal component pop-up to display more information
+*/
 import React, { Component } from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import ButtonsApp from './ButtonsApp';
@@ -46,7 +48,7 @@ class MovieModal extends Component {
     }
 
     return (
-      <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{ backgroundColor: "rgba(255,255,255,.0)", color: "white", fontWeight: "bold" }}>More Info</Button>}>
+      <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button id="info-button" style={{ backgroundColor: "rgba(255,255,255,.0)", color: "white", fontWeight: "bold", borderRadius: "20px" }}>More Info</Button>}>
         <Modal.Header id="movie-title">
           {title}
 
