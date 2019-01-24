@@ -17,12 +17,16 @@ class Buttons extends Component {
     //If the movie passed through props is in the favorite/watch_later list then toggle true
     componentDidMount() {
         this.props.favorites.forEach((movieObject) => {
-            if (movieObject.original_title === this.props.movie.original_title) this.setState({ isFavorited: true });
+            //The api returned can return either original_title or title
+            let movieTitle = movieObject.original_title ? movieObject.original_title : movieObject.title;
+            let propsMovieTitle = this.props.movie.original_title ? this.props.movie.original_title : this.props.movie.title;
+            if (movieTitle === propsMovieTitle) this.setState({ isFavorited: true });
         });
 
         this.props.watch_later.forEach((movieObject) => {
-            console.log(movieObject.orignal_title + this.props.movie.original_title);
-            if (movieObject.original_title === this.props.movie.original_title) this.setState({ isWatchLater: true });
+            let movieTitle = movieObject.original_title ? movieObject.original_title : movieObject.title;
+            let propsMovieTitle = this.props.movie.original_title ? this.props.movie.original_title : this.props.movie.title;
+            if (movieTitle === propsMovieTitle) this.setState({ isWatchLater: true });
         });
     }
 
@@ -56,9 +60,11 @@ class Buttons extends Component {
         //If the movie is on the list display a highlighted icon, otherwise display only the outline
         let heart = this.state.isFavorited ? "https://img.icons8.com/ios/50/000000/like-filled.png" : "https://img.icons8.com/ios/50/000000/like.png";
         let clock = this.state.isWatchLater ? "https://img.icons8.com/ios/50/000000/timer-filled.png" : "https://img.icons8.com/ios/50/000000/timer.png"
-
+        let style;
+        style = this.props.style ? style = this.props.style : { left: ".3", position: "absolute" };
         return (
-            <div style={{ left: ".3", position: "absolute" }}>
+
+            <div style={style}>
                 <img id="star" src={heart} onClick={this.onClickHeart} style={heartStyle} />
                 <img id="star" src={clock} onClick={this.onClickClock} style={clockStyle} />
             </div>
