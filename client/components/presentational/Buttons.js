@@ -21,21 +21,22 @@ class Buttons extends Component {
         });
 
         this.props.watch_later.forEach((movieObject) => {
+            console.log(movieObject.orignal_title + this.props.movie.original_title);
             if (movieObject.original_title === this.props.movie.original_title) this.setState({ isWatchLater: true });
         });
     }
 
     //If the icon is highlighted the movie is on the list, so remove it otherwise add to favorites/watch_later
     onClickHeart = () => {
-        if (this.state.isFavorited) this.props.onRemoveFavorite(this.props.movie);
+        if (this.state.isFavorited) { this.props.onRemoveFavorite(this.props.movie); }
         else this.props.onAddFavorite(this.props.movie);
-        console.log(`Added/Removed ${this.props.movie.original_title} to/from favorites.`)
+        this.setState({ isFavorited: !this.state.isFavorited });
     }
 
     onClickClock = () => {
         if (this.state.isWatchLater) this.props.onRemoveWatchLater(this.props.movie);
         else this.props.onAddWatchLater(this.props.movie);
-        console.log(`Added/Removed ${this.props.movie.original_title} to/from Watch Later.`)
+        this.setState({ isWatchLater: !this.state.isWatchLater });
     }
 
     render() {
