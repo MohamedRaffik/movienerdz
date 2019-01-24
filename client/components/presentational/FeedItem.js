@@ -23,7 +23,7 @@ const FeedItem = (props) => {
 		paddingBottom: "8px"
 	}
 
-	let { overview, release_date, poster_path, backdrop_path } = props.data;
+	let { poster_path, backdrop_path } = props.data;
 	if (!poster_path) poster_path = props.data.backdrop_path;
 	if (!backdrop_path) backdrop_path = props.data.poster_path;
 	let title = props.data.name ? props.data.name : props.data.title;
@@ -47,9 +47,9 @@ const FeedItem = (props) => {
 				<Card.Meta>
 					<img id="star" src="https://img.icons8.com/nolan/64/000000/star.png" /><span className="movie" style={{ color: "white" }}>{vote_average}</span>
 				</Card.Meta>
-				<MovieModal isFavorited={favorited} isWatchLater={watchlater} loggedIn={loggedIn} title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
+				<MovieModal isFavorited={favorited} isWatchLater={watchlater} loggedIn={loggedIn} movie={data} />
 				<br></br>
-				{loggedIn ? <ButtonsApp movie={props.data} isFavorited={favorited} isWatchLater={watchlater} /> : null}
+				{loggedIn ? <ButtonsApp movie={data} isFavorited={favorited} isWatchLater={watchlater} /> : null}
 			</Card.Content>
 		</Card>
 	);

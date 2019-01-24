@@ -23,7 +23,6 @@ const ImageSlide = (props) => {
   const releaseDate = props.data.release_date;
   const title = props.data.name ? props.data.name : props.data.title;
   const rating = props.data.vote_average;
-  const { overview, release_date, backdrop_path, vote_average } = props.data;
 
   const formatDate = (date) => {
     let newDate = date.replace('-', '/').replace('-', '/');
@@ -43,7 +42,7 @@ const ImageSlide = (props) => {
           <span id="release-date">{formatDate(releaseDate)}</span>
         </div>
         <br></br>
-        <MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
+        <MovieModal movie={props.data} />
       </div>
     </div>
   );

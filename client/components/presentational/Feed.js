@@ -96,7 +96,7 @@ const Feed = (props) => {
 				</Segment>
 				:
 				<Segment textAlign='center' inverted={true} style={{ background: "rgba(0,0,0,0)" }}>
-					<Button disabled={true}>{page}/{total_pages}</Button>
+					<Button disabled={true}>1</Button>
 				</Segment>
 			}
 		</Segment>

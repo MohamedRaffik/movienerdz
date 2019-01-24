@@ -15,13 +15,6 @@ class MovieModal extends Component {
   }
 
   //When the modal is open prevent rerender when passed new props
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.isOpen) {
-      if (nextProps !== this.props) return false;
-      else return true;
-    }
-    return true;
-  }
 
   formatDate = (date) => {
     if (!date) return date;
@@ -37,8 +30,10 @@ class MovieModal extends Component {
 
 
   render() {
+    const { movie, loggedIn } = this.props;
+    const { overview, vote_average, release_date, backdrop_path } = movie;
 
-    const { title, overview, vote_average, release_date, backdrop_path, loggedIn } = this.props;
+    let title = movie.name ? movie.name : movie.title;
 
     const buttonStyle = {
       left: 0,
@@ -51,7 +46,6 @@ class MovieModal extends Component {
       <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button id="info-button" style={{ color: "white", fontWeight: "bold", borderRadius: "20px" }}>More Info</Button>}>
         <Modal.Header id="movie-title">
           {title}
-
         </Modal.Header>
         <Image size="massive" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
         <Header id="movie-info">
@@ -64,7 +58,7 @@ class MovieModal extends Component {
         </Header>
         <Modal.Description style={{ paddingBottom: "35px" }}>
           <p id="overview">{overview}</p>
-          {loggedIn ? <ButtonsApp style={buttonStyle} isFavorited={this.props.isFavorited} isWatchLater={this.props.isWatchLater} movie={this.props} /> : null}
+          {loggedIn ? <ButtonsApp style={buttonStyle} isFavorited={this.props.isFavorited} isWatchLater={this.props.isWatchLater} movie={this.props.movie} /> : null}
         </Modal.Description>
       </Modal>
     );
