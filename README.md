@@ -1,6 +1,6 @@
 # MovieNerdz
 http://movienerdz.herokuapp.com/ <br>
-![MovieNerdz](https://imgur.com/a/S9AaMaS)
+![MovieNerdz](https://i.imgur.com/foWGy0X.jpg)
 <h1>To clone and run </h1>
 <code> git clone https://github.com/MohamedRaffik/movienerdz.git </code> <br>
 <code> cd movienerdz </code><br>
