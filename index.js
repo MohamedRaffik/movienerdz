@@ -6,11 +6,12 @@ const passport = require('passport');
 const { db } = require('./models/index');
 const strategy = require('./strategies')(passport);
 const api = require('./routes/index')(passport)
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(passport.initialize());
 app.use('/api', api);
-app.use(express.static(path.join(__dirname, `client/${PATH_DIR}`)));
+app.use(express.static(path.join(__dirname, `client/build`)));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, `client/${PATH_DIR}/index.html`))
@@ -23,6 +24,6 @@ app.use((err, req, res, next) => {
 
 db.sync().then(() => console.log('Tables Synced')).catch(err => console.error("LOL:",err));
 
-app.listen(3000, () => {
-  console.log('Listening on Port 3000');
+app.listen(port, () => {
+  console.log(`Listening on Port ${port}`);
 })
