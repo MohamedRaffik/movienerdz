@@ -25,7 +25,7 @@ const FeedItem = (props) => {
 
 	let { overview, release_date, poster_path, backdrop_path } = props.data;
 	if (!poster_path) poster_path = props.data.backdrop_path;
-	//if (!backdrop_path) backdrop_path = props.data.poster_path;
+	if (!backdrop_path) backdrop_path = props.data.poster_path;
 	let title = props.data.name ? props.data.name : props.data.title;
 	let vote_average = props.data.vote_average;
 
