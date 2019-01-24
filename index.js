@@ -21,8 +21,7 @@ app.get('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err);
-  console.error(err.stack);
-  res.status(err.status || 500).send(err.message);
+  res.status(err.status || 500).json(err);
 });
 
 db.sync().then(() => console.log('Tables Synced')).catch(err => console.error("LOL:",err));

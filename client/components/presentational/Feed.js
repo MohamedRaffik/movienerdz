@@ -62,6 +62,7 @@ const Feed = (props) => {
 		let new_filter = filter.toLowerCase();
 		new_filter = new_filter.replace(new_filter[0], new_filter[0].toUpperCase());
 		if (filter === TOP_RATED) new_filter = 'Top Rated'
+		else if (filter === WATCH_LATER) new_filter = 'Watch Later'
 		else if (filter === SEARCH) new_filter += (genres.length === 0) ? `by Keyword: ${keyword}` : ` by Genre: ${genre_string}`
 		return new_filter
 	}

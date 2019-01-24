@@ -14,10 +14,10 @@ module.exports = (passport) => {
 	});
 
 	router.post('/login', function (req, res, next) {
-		passport.authenticate('local-login', function (err, user, info) {
+		passport.authenticate('local-login', (err, user, info) => {
 			if (err) return next(err);
 			if (!user) return next({ error: true, message: info });
-			req.login(user, function (loginErr) {
+			req.login(user, (loginErr) => {
 				if (loginErr) return next(loginErr);
 				return res.json(user);
 			});

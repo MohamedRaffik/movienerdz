@@ -3,7 +3,7 @@
 */
 
 import { connect } from 'react-redux';
-import { loggedIn, loggedOut, signedUp } from '../../actions';
+import { loggedIn, loggedOut, signedUp, changeFilter } from '../../actions';
 import Login from './Login';
 
 const MapStateToProps = (state, ownProps) => {
@@ -15,6 +15,7 @@ const MapStateToProps = (state, ownProps) => {
 
 const MapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onChangeFilter: (filter) => dispatch(changeFilter(filter)),
     onLoggedIn: (username, watch_later, favorites) => dispatch(loggedIn(username, watch_later, favorites)),
     onLoggedOut: () => dispatch(loggedOut()),
     onSignedUp: (username) => dispatch(signedUp(username))
