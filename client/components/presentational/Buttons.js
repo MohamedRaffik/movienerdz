@@ -4,6 +4,8 @@
 */
 
 import React, { Component } from 'react';
+import './Buttons.css';
+
 
 class Buttons extends Component {
     constructor(props) {
@@ -29,6 +31,7 @@ class Buttons extends Component {
             if (movieTitle === propsMovieTitle) this.setState({ isWatchLater: true });
         });
     }
+
 
     //If the icon is highlighted the movie is on the list, so remove it otherwise add to favorites/watch_later
     onClickHeart = () => {
@@ -65,8 +68,8 @@ class Buttons extends Component {
         return (
 
             <div style={style}>
-                <img id="star" src={heart} onClick={this.onClickHeart} style={heartStyle} />
-                <img id="star" src={clock} onClick={this.onClickClock} style={clockStyle} />
+                <img id="heart" src={heart} onClick={this.onClickHeart} style={heartStyle} />
+                <img id="clock" src={clock} onClick={this.onClickClock} style={clockStyle} />
             </div>
         );
     }
