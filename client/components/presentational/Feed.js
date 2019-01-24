@@ -85,7 +85,7 @@ const Feed = (props) => {
 				</Grid.Row>
 			</Grid>
 			{feed.data ?
-				<Segment textAlign='center' inverted={true}style={{background: "rgba(0,0,0,0)"}}>
+				<Segment textAlign='center' inverted={true} style={{ background: "rgba(0,0,0,0)" }}>
 					<Button.Group>
 						<Button disabled={page === 1} icon='angle double left' onClick={() => ChangePage(1 - page)} />
 						<Button disabled={page === 1} icon='angle left' onClick={() => ChangePage(-1)} />
@@ -95,7 +95,9 @@ const Feed = (props) => {
 					</Button.Group>
 				</Segment>
 				:
-				null
+				<Segment textAlign='center' inverted={true} style={{ background: "rgba(0,0,0,0)" }}>
+					<Button disabled={true}>{page}/{total_pages}</Button>
+				</Segment>
 			}
 		</Segment>
 	);
