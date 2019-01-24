@@ -20,7 +20,8 @@ import LoginApp from './LoginApp';
 import { FILTER_ACTIONS } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
 import { Genres } from '../constants';
-import Logo from '../../Images/mn1.png'
+import Logo from '../../Images/mn1.png';
+import '../presentational/MovieModal.css';
 
 
 class NavigationBar extends Component {
@@ -116,7 +117,7 @@ class NavigationBar extends Component {
       <div style={divStyle}>
         <Menu inverted={true} size="small" borderless={true} style={style}>
           <Menu.Item>
-            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }} href='/'></Image>
+            <Image id="Logo" src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }} href='/'></Image>
           </Menu.Item>
           <Menu.Item position="right">
             <Menu.Item>

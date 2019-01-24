@@ -66,3 +66,12 @@
     -webkit-transition: box-shadow 1s;
     -webkit-animation: shadow 3s linear infinite; 
   }
+
+  #Logo:hover {
+    box-shadow: 0 0 100px 0 rgba(255, 255, 255, 1), 0 0px 20px 0 rgba(255, 255, 255, 0.5);
+    transition: ease-in-out 1s ;
+    transition-timing-function: ease;
+    -webkit-transition: box-shadow 1s;
+    -webkit-animation: shadow 3s linear infinite; 
+    border-radius: 10px;
+  }
