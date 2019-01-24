@@ -1,25 +1,5 @@
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('../models/index').User;
-
-
-function signupStrategy(passport) {
-
-	passport.serializeUser(function (user, done) {
-		done(null, user.id);
-	});
-
-	passport.use('local-signup', new LocalStrategy({
-		usernameField: 'username',
-		passwordField: 'password',
-		passReqToCallback: true
-	}, processSignupCallback));
-
-	passport.use('local-login', new LocalStrategy({
-		usernameField: 'username',
-		passwordField: 'password',
-		passReqToCallback: true
-	}, processLoginCallback));
-}
+const LocalStrategy = require('passport-local').Strategy;
+const { User } = require('../models/index');
 
 function processLoginCallback(req, username, password, done) {
 	console.log("username:", username, "password:", password, "done: ", done);
@@ -56,6 +36,21 @@ function processSignupCallback(req, username, password, done) {
 		});
 }
 
-module.exports = {
-	signupStrategy
+module.exports = (passport) => {
+	passport.serializeUser(function (user, done) {
+		done(null, user.id);
+	});
+
+	passport.use('local-signup', new LocalStrategy({
+		usernameField: 'username',
+		passwordField: 'password',
+		passReqToCallback: true
+	}, processSignupCallback));
+
+	passport.use('local-login', new LocalStrategy({
+		usernameField: 'username',
+		passwordField: 'password',
+		passReqToCallback: true
+	}, processLoginCallback));
 }
+
