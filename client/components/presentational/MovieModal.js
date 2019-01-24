@@ -49,7 +49,7 @@ class MovieModal extends Component {
 
     console.log(this.props);
     return (
-      <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button id="info-button" style={{ backgroundColor: "rgba(255,255,255,.0)", color: "white", fontWeight: "bold", borderRadius: "20px" }}>More Info</Button>}>
+      <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button id="info-button" style={{ color: "white", fontWeight: "bold", borderRadius: "20px" }}>More Info</Button>}>
         <Modal.Header id="movie-title">
           {title}
 
