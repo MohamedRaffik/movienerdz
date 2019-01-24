@@ -56,7 +56,6 @@ class Login extends Component {
           onLoggedIn(data.username, (data.watch_later) ? data.watch_later : [], (data.favorites) ? data.favorites : []);
         })
         .catch(err => {
-          // for (let i in err) console.log(i, err[i])
           const { message } = err.response.data;
           if (message.foundUser === false) this.setState({ userNotFound: true })
           else if (message.validPassword === false) this.setState({ wrongPass: true })

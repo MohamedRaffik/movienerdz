@@ -43,8 +43,8 @@ class Buttons extends Component {
         username,
         favorites: newFavorites
       })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
+        .then(res => {})
+        .catch(err => console.error(err));
       onUpdateFeed(FAVORITES, newFavorites);
     });
   }
@@ -60,8 +60,8 @@ class Buttons extends Component {
         username,
         watchLater: newWatchLater
       })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
+        .then(res => {})
+        .catch(err => console.error(err));
       onUpdateFeed(WATCH_LATER, newWatchLater);
     });
   }
