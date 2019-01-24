@@ -14,11 +14,14 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Dropdown, Sticky, Input, Icon, Image } from 'semantic-ui-react';
+import { Menu, Dropdown, Sticky, Input, Icon, Form, Image } from 'semantic-ui-react';
 import LoginApp from './LoginApp';
+
 import { FILTER_ACTIONS } from '../../actions';
 const { TRENDING, UPCOMING, POPULAR, TOP_RATED, SEARCH, WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+import { Genres } from '../constants';
 import Logo from '../../Images/mn1.png'
+
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -26,15 +29,9 @@ class NavigationBar extends Component {
     this.state = {
       keyword: '',
       genre: [],
-      genres: []
     };
   }
 
-  componentDidMount() {
-    axios.get('/api/moviedata/genres')
-      .then(res => this.setState({ genres: res.data }))
-      .catch(err => console.error(err));
-  }
 
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
@@ -55,8 +52,9 @@ class NavigationBar extends Component {
   }
 
   Search = () => {
-    const { onUpdateFeed, onChangeFilter, onUpdateKeyword } = this.props;
-    const { keyword } = this.state;
+    const { onUpdateFeed, onChangeFilter, onUpdateKeyword, onUpdateGenre } = this.props;
+    const keyword = (this.state.keyword !== '') ? this.state.keyword : ' ';
+    onUpdateGenre([]);
     onUpdateKeyword(keyword);
     axios.get(`/api/moviedata/search/${keyword}/1`)
       .then(res => {
@@ -67,10 +65,12 @@ class NavigationBar extends Component {
   }
 
   SearchGenres = (event, element) => {
-    const { onUpdateFeed, onChangeFilter } = this.props;
-    if (element.value.length >= 3) element.value.length = 3;
+    const { onUpdateFeed, onChangeFilter, onUpdateGenre } = this.props;
+    if (element.value.length === 0) return;
+    else if (element.value.length >= 3) element.value.length = 3;
     this.setState({ genre: element.value }, () => {
-      axios.post('/api/moviedata/genres', {
+      onUpdateGenre(this.state.genre);
+      axios.post('/api/moviedata/genres/1', {
         genres: this.state.genre
       })
         .then(res => {
@@ -79,6 +79,7 @@ class NavigationBar extends Component {
         })
         .catch(err => console.error(err));
     });
+
   }
 
   render() {
@@ -88,9 +89,8 @@ class NavigationBar extends Component {
       ['Show Popular Movies', POPULAR],
       ['Show Top Rated Movies', TOP_RATED]
     ];
-    const { genres } = this.state;
 
-    const GenreItems = genres.map((element) => {
+    const GenreItems = Genres.map((element) => {
       return { key: element.id, text: element.name, value: element.id };
     });
 
@@ -98,14 +98,19 @@ class NavigationBar extends Component {
       return { key: element[1], text: element[0], value: element[1] };
     });
 
+    const style = {
+      borderRadius: "0px",
+      opacity: .9,
+      backgroundColor: "black",
+      background: "linear-gradient(to left, rgba(24, 24, 24, 0.9 ), rgba(0,0,0,1))"
+    }
     return (
-      <Sticky>
-        <Menu inverted={true} size="small" borderless={true}>
-        <Menu.Item>
-        <Image src={Logo} style={{height: "700", width: "150px", marginLeft:"50px"}}></Image>  
-        </Menu.Item>
+      <Sticky active={true}>
+        <Menu inverted={true} size="small" borderless={true} style={style}>
+          <Menu.Item>
+            <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }} href='/'></Image>
+          </Menu.Item>
           <Menu.Item position="right">
-
             <Menu.Item>
               <Dropdown
                 defaultValue={filter_options[0][1]}
@@ -127,11 +132,15 @@ class NavigationBar extends Component {
               </Dropdown>
             </Menu.Item>
             <Menu.Item>
-              <Input
-                icon={<Icon name="search" link={true} onClick={this.Search} />}
-                onChange={(event, element) => this.setState({ keyword: element.value })}
-                placeholder="Enter Keyword"
-              />
+              <Form onSubmit={this.Search}>
+                <Form.Field>
+                  <Input
+                    icon={<Icon name="search" link={true} onClick={this.Search} />}
+                    onChange={(event, element) => this.setState({ keyword: element.value })}
+                    placeholder="Enter Keyword"
+                  />
+                </Form.Field>
+              </Form>
             </Menu.Item>
             <Menu.Item>
               <LoginApp />
