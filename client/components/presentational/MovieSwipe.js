@@ -78,6 +78,14 @@ class MovieSwipe extends Component {
     clearInterval(this.interval);
     this.interval = setInterval(() => this.NextSlide(), 4000);
   }
+  
+  onMouseEnter = () => {
+    clearInterval(this.interval);
+  }
+
+  onMouseLeave = () => {
+    this.interval = setInterval(() => this.NextSlide(), 4000);
+  }
 
   render() {
     const { index } = this.state;
@@ -93,7 +101,7 @@ class MovieSwipe extends Component {
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
         </Segment>
         :
-        <div className="carousel">
+        <div className="carousel" onMouseOver={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
           <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
           <ImageSlide data={playing_now[index]} />
           <Arrow direction="right" clickFunction={this.NextSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-right.png" />
