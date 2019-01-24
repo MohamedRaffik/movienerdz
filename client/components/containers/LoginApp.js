@@ -9,7 +9,8 @@ import Login from './Login';
 const MapStateToProps = (state, ownProps) => {
   return {
     loggedIn: state.loggedIn,
-    username: state.name
+    username: state.name,
+    filter: state.filter
   }
 }
 

@@ -7,6 +7,5 @@ module.exports = (passport) => {
   Router.use('/moviedata', MovieData);
   Router.use('/auth', Auth);
   Router.use('/update',Update);
-  Router.use('/get',getUserData);
   return Router;
 }

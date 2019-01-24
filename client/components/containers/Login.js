@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Header, Grid, Dropdown, Segment, Message } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
-const { WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { WATCH_LATER, FAVORITES, TRENDING } = FILTER_ACTIONS;
 import axios from 'axios';
 
 class Login extends Component {
@@ -36,9 +36,11 @@ class Login extends Component {
   }
 
   LogOut = () => {
-    const { onLoggedOut } = this.props;
+    const { onLoggedOut, onChangeFilter, filter } = this.props;
     onLoggedOut();
-    this.setState({ open: false });
+    this.setState({ open: false }, () => {
+      if (filter === WATCH_LATER || filter === FAVORITES) onChangeFilter(TRENDING);
+    });
   }
 
   Login = () => {

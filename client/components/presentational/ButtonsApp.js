@@ -9,7 +9,8 @@ import { updateFeed } from '../../actions';
 const MapStateToProps = (state, ownProps) => {
   return {
     watch_later: state.watch_later,
-    favorites: state.favorites
+    favorites: state.favorites,
+    username: state.name
   }
 }
 

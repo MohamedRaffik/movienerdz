@@ -45,7 +45,6 @@ class MovieModal extends Component {
       paddingLeft: "20px"
     }
 
-    console.log(this.props);
     return (
       <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{ backgroundColor: "rgba(255,255,255,.0)", color: "white", fontWeight: "bold" }}>More Info</Button>}>
         <Modal.Header id="movie-title">
