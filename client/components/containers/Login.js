@@ -84,10 +84,16 @@ class Login extends Component {
   render() {
     const style = {
       "margin": "1em",
+      "color": "white",
     };
     const { loggedIn, username } = this.props;
     const { open, userNotFound, userExists, wrongPass } = this.state;
 
+    const modalStyle = {
+      background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,.4))",
+      boxShadow: "0 0 100px 0 rgba(255, 255, 255, 0.6), 0 0px 20px 0 rgba(255, 255, 255, 0.2)",
+
+    }
     return (
       !loggedIn ?
         <Modal
@@ -102,16 +108,17 @@ class Login extends Component {
           closeIcon={true}
           open={open}
           onClose={this.ChangePopup}
+
         >
-          <Modal.Content>
+          <Modal.Content style={modalStyle}>
             <Grid relaxed='very' columns='2' divided={true}>
               <Grid.Column>
                 <Header style={style} as='h1' textAlign='center'>Sign Up</Header>
-                <Form size='huge' style={style} onSubmit={this.SignUp} error={userExists}>
+                <Form size='huge' style={style} onSubmit={this.SignUp} error={userExists} >
                   <Form.Input label="Username" placeholder="Username" onChange={(event) => this.setState({ signupUser: event.target.value })} />
                   {userExists ? <Message error={true} content="Username Is Taken" /> : null}
                   <Form.Input label="Password" placeholder="Password" type="password" onChange={(event) => this.setState({ signupPass: event.target.value })} />
-                  <Form.Button>Sign Up</Form.Button>
+                  <Form.Button style={{ color: "black", fontWeight: "bold", borderRadius: "20px", backgroundColor: "white" }}>Sign Up</Form.Button>
                 </Form>
               </Grid.Column>
               <Grid.Column>
@@ -121,7 +128,7 @@ class Login extends Component {
                   {userNotFound ? <Message error={true} content="Username Not Found" /> : null}
                   <Form.Input label="Password" placeholder="Password" type="password" onChange={(event) => this.setState({ loginPass: event.target.value })} />
                   {wrongPass ? <Message error={true} content="Incorrect Password" /> : null}
-                  <Form.Button>Login</Form.Button>
+                  <Form.Button style={{ color: "black", fontWeight: "bold", borderRadius: "20px", backgroundColor: "white" }}>Login</Form.Button>
                 </Form>
               </Grid.Column>
             </Grid>
