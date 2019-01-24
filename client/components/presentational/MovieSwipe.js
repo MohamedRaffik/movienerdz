@@ -30,6 +30,16 @@ const ImageSlide = (props) => {
     return newDate;
   }
 
+  const { loggedIn, favorites, watch_later, data } = props;
+	let favorited = false, watchlater = false;
+	favorites.forEach((movieObject) => {
+		if (movieObject.id === data.id) favorited = true
+	});
+
+	watch_later.forEach((movieObject) => {
+		if (movieObject.id === data.id) watchlater = true
+	});
+
   return (
     <div className="image-slide fade" style={styles}>
       <div className="movie-text">
@@ -42,7 +52,7 @@ const ImageSlide = (props) => {
           <span id="release-date">{formatDate(releaseDate)}</span>
         </div>
         <br></br>
-        <MovieModal movie={props.data} />
+        <MovieModal movie={props.data} loggedIn={loggedIn} isFavorited={favorited} isWatchLater={watchlater}/>
       </div>
     </div>
   );
@@ -102,7 +112,7 @@ class MovieSwipe extends Component {
         :
         <div className="carousel" onMouseOver={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
           <Arrow direction="left" clickFunction={this.PreviousSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-left.png" />
-          <ImageSlide data={playing_now[index]} />
+          <ImageSlide data={playing_now[index]} favorites={this.props.favorites} watch_later={this.props.watch_later} loggedIn={this.props.loggedIn} />
           <Arrow direction="right" clickFunction={this.NextSlide} glyph="https://img.icons8.com/nolan/64/000000/chevron-right.png" />
         </div>
     );

@@ -14,8 +14,6 @@ class MovieModal extends Component {
     }
   }
 
-  //When the modal is open prevent rerender when passed new props
-
   formatDate = (date) => {
     if (!date) return date;
     let newDate = date.replace('-', '/').replace('-', '/');

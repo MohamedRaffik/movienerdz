@@ -7,7 +7,10 @@ import MovieSwipe from './MovieSwipe';
 
 const MapStateToProps = (state, ownProps) => {
   return {
-    playing_now: state.playing_now
+    playing_now: state.playing_now,
+    favorites: state.favorites,
+    watch_later: state.watch_later,
+    loggedIn: state.loggedIn
   }
 }
 
