@@ -27,6 +27,7 @@ const FeedItem = (props) => {
 	//if (!backdrop_path) backdrop_path = props.data.poster_path;
 	let title = props.data.name ? props.data.name : props.data.title;
 	let vote_average = props.data.vote_average;
+	const { loggedIn } = props;
 
 	return (
 		<Card style={style}>
@@ -38,7 +39,7 @@ const FeedItem = (props) => {
 				</Card.Meta>
 				<MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
 				<br></br>
-				<ButtonsApp movie={props.data} />
+				{loggedIn ? <ButtonsApp movie={props.data} /> : null}
 			</Card.Content>
 		</Card>
 	);

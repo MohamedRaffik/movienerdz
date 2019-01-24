@@ -4,22 +4,19 @@
 
 import { connect } from 'react-redux';
 import Buttons from './Buttons';
-import { addFavorite, removeFavorite, addWatchLater, removeWatchLater } from '../../actions';
+import { updateFeed } from '../../actions';
 
 const MapStateToProps = (state, ownProps) => {
-    return {
-        watch_later: state.watch_later,
-        favorites: state.favorites
-    }
+  return {
+    watch_later: state.watch_later,
+    favorites: state.favorites
+  }
 }
 
 const MapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        onAddFavorite: (data) => dispatch(addFavorite(data)),
-        onRemoveFavorite: (data) => dispatch(removeFavorite(data)),
-        onAddWatchLater: (data) => dispatch(addWatchLater(data)),
-        onRemoveWatchLater: (data) => dispatch(removeWatchLater(data))
-    }
+  return {
+    onUpdateFeed: (type, data) => dispatch(updateFeed(type, data))
+  }
 }
 
 const ButtonsApp = connect(MapStateToProps, MapDispatchToProps)(Buttons);

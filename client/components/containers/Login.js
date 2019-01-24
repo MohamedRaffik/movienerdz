@@ -32,7 +32,7 @@ class Login extends Component {
 
   ChangeFeed = (filter) => {
     const { onChangeFilter } = this.props;
-    onChangeFilter(filter)
+    onChangeFilter(filter);
   }
 
   LogOut = () => {

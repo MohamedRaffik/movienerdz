@@ -35,14 +35,14 @@ class NavigationBar extends Component {
 
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
-    if (filter !== SEARCH || filter != WATCH_LATER || filter != FAVORITES) {
+    if (filter !== SEARCH && filter !== WATCH_LATER && filter !== FAVORITES && filter != TRENDING) {
       const feeds = [
-        [TRENDING, 'trending'],
         [UPCOMING, 'upcoming'],
         [TOP_RATED, 'top_rated'],
         [POPULAR, 'popular'],
       ];
       let feed;
+      console.log(filter);
       feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
       axios.get(`/api/moviedata/${feed}/1`)
         .then(res => onUpdateFeed(filter, res.data))
