@@ -104,8 +104,15 @@ class NavigationBar extends Component {
       backgroundColor: "black",
       background: "linear-gradient(to left, rgba(24, 24, 24, 0.9 ), rgba(0,0,0,1))"
     }
+
+    const divStyle= {
+      position: "sticky",
+      top: "0px",
+      zIndex: "1"
+    }
+
     return (
-      <Sticky active={true}>
+      <div style={divStyle}>
         <Menu inverted={true} size="small" borderless={true} style={style}>
           <Menu.Item>
             <Image src={Logo} style={{ height: "700", width: "150px", marginLeft: "50px" }} href='/'></Image>
@@ -147,7 +154,7 @@ class NavigationBar extends Component {
             </Menu.Item>
           </Menu.Item>
         </Menu>
-      </Sticky>
+      </div>
     );
   }
 }

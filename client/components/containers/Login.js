@@ -6,7 +6,7 @@
 */
 
 import React, { Component } from 'react';
-import { Button, Modal, Form, Header, Grid } from 'semantic-ui-react';
+import { Button, Modal, Form, Header, Grid, Dropdown, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Login extends Component {
@@ -25,6 +25,12 @@ class Login extends Component {
     this.setState({ open: !this.state.open });
   }
 
+  LogOut = () => {
+    const { onLoggedOut } = this.props;
+    onLoggedOut();
+    this.setState({ open: false });
+  }
+
   Login = () => {
     const { loginPass, loginUser } = this.state;
     axios.post('/api/auth/login', {
@@ -34,7 +40,7 @@ class Login extends Component {
       .then(res => {
         const { onLoggedIn } = this.props;
         const { data } = res;
-        onLoggedIn(data.username, (data.watch_later.length === null) ? data.watch_later : [], (data.favorites.length === null) ? data.favorites : []);
+        onLoggedIn(data.username, (data.watch_later) ? data.watch_later : [], (data.favorites) ? data.favorites : []);
       })
       .catch(err => console.error(err));
   }
@@ -55,10 +61,12 @@ class Login extends Component {
 
   render() {
     const style = {
-      "margin": "1em"
+      "margin": "1em",
+      "zIndex": "99"
     };
     const { loggedIn, username } = this.props;
     const { open } = this.state;
+    console.log(username);
 
     return (
       !loggedIn ?
@@ -88,8 +96,8 @@ class Login extends Component {
               <Grid.Column>
                 <Header style={style} as='h1' textAlign='center'>Login</Header>
                 <Form size='huge' style={style} onSubmit={this.Login}>
-                  <Form.Input label="Username" placeholder="Username" onChange={(event, element) => this.setState({ loginUser: element.target.value })} />
-                  <Form.Input label="Password" placeholder="Password" type="password" onChange={(event, element) => this.setState({ loginPass: element.target.value })} />
+                  <Form.Input label="Username" placeholder="Username" onChange={(event) => this.setState({ loginUser: event.target.value })} />
+                  <Form.Input label="Password" placeholder="Password" type="password" onChange={(event) => this.setState({ loginPass: event.target.value })} />
                   <Form.Button>Login</Form.Button>
                 </Form>
               </Grid.Column>
@@ -97,10 +105,15 @@ class Login extends Component {
           </Modal.Content>
         </Modal>
         :
-        <Button.Group>
-          <Button>{username}</Button>
-          <Button>Log Out</Button>
-        </Button.Group>
+        <Segment size='tiny' style={{backgroundColor: "inherit"}}>
+          <Dropdown style={style} text={username} pointing={true} simple={true} button={true}>
+            <Dropdown.Menu>
+              <Dropdown.Item>Show Favorites</Dropdown.Item>
+              <Dropdown.Item>Show Watch Later</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Button onClick={this.LogOut}>Log Out</Button>
+        </Segment>
     );
   }
 }
