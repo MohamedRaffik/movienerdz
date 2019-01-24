@@ -64,7 +64,7 @@ class MovieModal extends Component {
         </Header>
         <Modal.Description style={{ paddingBottom: "35px" }}>
           <p id="overview">{overview}</p>
-          {loggedIn ? <ButtonsApp style={buttonStyle} movie={this.props} /> : null}
+          {loggedIn ? <ButtonsApp style={buttonStyle} isFavorited={this.props.isFavorited} isWatchLater={this.props.isWatchLater} movie={this.props} /> : null}
         </Modal.Description>
       </Modal>
     );

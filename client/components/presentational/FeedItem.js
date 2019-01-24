@@ -28,7 +28,16 @@ const FeedItem = (props) => {
 	//if (!backdrop_path) backdrop_path = props.data.poster_path;
 	let title = props.data.name ? props.data.name : props.data.title;
 	let vote_average = props.data.vote_average;
-	const { loggedIn } = props;
+
+	const { loggedIn, favorites, watch_later, data } = props;
+	let favorited = false, watchlater = false;
+	favorites.forEach((movieObject) => {
+		if (movieObject.id === data.id) favorited = true
+	});
+
+	watch_later.forEach((movieObject) => {
+		if (movieObject.id === data.id) watchlater = true
+	});
 
 	return (
 		<Card style={style} id="feed-item">
@@ -38,9 +47,9 @@ const FeedItem = (props) => {
 				<Card.Meta>
 					<img id="star" src="https://img.icons8.com/nolan/64/000000/star.png" /><span className="movie" style={{ color: "white" }}>{vote_average}</span>
 				</Card.Meta>
-				<MovieModal loggedIn={loggedIn} title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
+				<MovieModal isFavorited={favorited} isWatchLater={watchlater} loggedIn={loggedIn} title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
 				<br></br>
-				{loggedIn ? <ButtonsApp movie={props.data} /> : null}
+				{loggedIn ? <ButtonsApp movie={props.data} isFavorited={favorited} isWatchLater={watchlater} /> : null}
 			</Card.Content>
 		</Card>
 	);
