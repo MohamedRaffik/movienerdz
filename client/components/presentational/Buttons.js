@@ -51,7 +51,7 @@ class Buttons extends Component {
 
   onClickClock = () => {
     const { isWatchLater } = this.state;
-    const { movie, watch_later, onUpdateFeed } = this.props;
+    const { movie, watch_later, onUpdateFeed, username } = this.props;
     let newWatchLater;
     if (isWatchLater) newWatchLater = watch_later.filter((element) => movie.id !== element.id);
     else newWatchLater = [...watch_later, movie]

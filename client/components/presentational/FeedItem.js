@@ -38,7 +38,7 @@ const FeedItem = (props) => {
 				<Card.Meta>
 					<img id="star" src="https://img.icons8.com/nolan/64/000000/star.png" /><span className="movie" style={{ color: "white" }}>{vote_average}</span>
 				</Card.Meta>
-				<MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
+				<MovieModal loggedIn={loggedIn} title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
 				<br></br>
 				{loggedIn ? <ButtonsApp movie={props.data} /> : null}
 			</Card.Content>

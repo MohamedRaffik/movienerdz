@@ -38,7 +38,7 @@ class MovieModal extends Component {
 
   render() {
 
-    const { title, overview, vote_average, release_date, backdrop_path } = this.props;
+    const { title, overview, vote_average, release_date, backdrop_path, loggedIn } = this.props;
 
     const buttonStyle = {
       left: 0,
@@ -64,7 +64,7 @@ class MovieModal extends Component {
         </Header>
         <Modal.Description style={{ paddingBottom: "35px" }}>
           <p id="overview">{overview}</p>
-          <ButtonsApp style={buttonStyle} movie={this.props} />
+          {loggedIn ? <ButtonsApp style={buttonStyle} movie={this.props} /> : null}
         </Modal.Description>
       </Modal>
     );
