@@ -33,6 +33,7 @@ class NavigationBar extends Component {
   }
 
 
+
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
     if (filter !== SEARCH && filter !== WATCH_LATER && filter !== FAVORITES && filter != TRENDING) {

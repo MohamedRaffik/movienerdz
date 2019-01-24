@@ -1,6 +1,7 @@
 //Modal component pop-up to display more information
 import React, { Component } from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import ButtonsApp from './ButtonsApp';
 import './MovieModal.css';
 
 class MovieModal extends Component {
@@ -32,12 +33,25 @@ class MovieModal extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+
   render() {
+
     const { title, overview, vote_average, release_date, backdrop_path } = this.props;
 
+    const buttonStyle = {
+      left: 0,
+      position: "absolute",
+      bottom: "2%",
+      paddingLeft: "20px"
+    }
+
+    console.log(this.props);
     return (
       <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button style={{ backgroundColor: "rgba(255,255,255,.0)", color: "white", fontWeight: "bold" }}>More Info</Button>}>
-        <Modal.Header id="movie-title">{title}</Modal.Header>
+        <Modal.Header id="movie-title">
+          {title}
+
+        </Modal.Header>
         <Image size="massive" src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`} />
         <Header id="movie-info">
           <div>
@@ -45,9 +59,11 @@ class MovieModal extends Component {
             {vote_average}
             <img id="calendar" src="https://img.icons8.com/nolan/64/000000/tear-off-calendar.png" />
             <span id="release-date">{this.formatDate(release_date)}</span>
-          </div></Header>
-        <Modal.Description>
+          </div>
+        </Header>
+        <Modal.Description style={{ paddingBottom: "35px" }}>
           <p id="overview">{overview}</p>
+          <ButtonsApp style={buttonStyle} movie={this.props} />
         </Modal.Description>
       </Modal>
     );

@@ -76,6 +76,7 @@ class Buttons extends Component {
     //If the movie is on the list display a highlighted icon, otherwise display only the outline
     const heart = isFavorited ? "https://img.icons8.com/ios/50/000000/like-filled.png" : "https://img.icons8.com/ios/50/000000/like.png";
     const clock = isWatchLater ? "https://img.icons8.com/ios/50/000000/timer-filled.png" : "https://img.icons8.com/ios/50/000000/timer.png"
+    style = this.props.style ? style = this.props.style : { left: ".3", position: "absolute" };
 
     return (
       <div style={{ left: ".3", position: "absolute" }}>

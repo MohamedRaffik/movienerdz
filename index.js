@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PATH_DIR = process.env.NODE_ENV === 'production' ? 'build' : 'public';
+
 const passport = require('passport');
 const { db } = require('./models/index');
 const strategy = require('./strategies')(passport);
@@ -9,6 +10,10 @@ const api = require('./routes/index')(passport)
 
 app.use(express.json());
 app.use(passport.initialize());
+
+require('./strategies/passport-local').signupStrategy(passport);
+
+
 
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, `client/${PATH_DIR}`)));
