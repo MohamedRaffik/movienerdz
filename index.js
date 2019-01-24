@@ -10,11 +10,6 @@ const api = require('./routes/index')(passport)
 
 app.use(express.json());
 app.use(passport.initialize());
-
-require('./strategies/passport-local').signupStrategy(passport);
-
-
-
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, `client/${PATH_DIR}`)));
 
