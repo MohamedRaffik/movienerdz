@@ -5,7 +5,8 @@
 
 import { Card, Image } from 'semantic-ui-react';
 import React from 'react';
-import MovieModal from './MovieModal'
+import MovieModal from './MovieModal';
+import ButtonsApp from './ButtonsApp';
 
 const FeedItem = (props) => {
 	const style = {
@@ -14,7 +15,7 @@ const FeedItem = (props) => {
 		background: "black",
 		paddingBottom: "20px"
 	}
-	const fontStyle= {
+	const fontStyle = {
 		color: "white",
 		borderTop: "1px solid white",
 		paddingTop: "10px",
@@ -26,10 +27,6 @@ const FeedItem = (props) => {
 	//if (!backdrop_path) backdrop_path = props.data.poster_path;
 	let title = props.data.name ? props.data.name : props.data.title;
 	let vote_average = props.data.vote_average;
-	
-	const onClick = () => {
-		console.log("hi")
-	}
 
 	return (
 		<Card style={style}>
@@ -37,14 +34,11 @@ const FeedItem = (props) => {
 			<Card.Content >
 				<Card.Header style={fontStyle}>{title}</Card.Header>
 				<Card.Meta>
-					<img id="star" src="https://img.icons8.com/nolan/64/000000/star.png"/><span className="movie" style={{color:"white"}}>{vote_average}</span>
+					<img id="star" src="https://img.icons8.com/nolan/64/000000/star.png" /><span className="movie" style={{ color: "white" }}>{vote_average}</span>
 				</Card.Meta>
-				<MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average}/>
+				<MovieModal title={title} overview={overview} release_date={release_date} backdrop_path={backdrop_path} vote_average={vote_average} />
 				<br></br>
-				<div style={{left:".3", position:"absolute"}}>
-					<img id="star" src="https://img.icons8.com/ios/50/000000/like.png" onClick={onClick} style={{height:"30px", width:"auto", cursor: "pointer"}}/>
-					<img id="star" src="https://img.icons8.com/ios/50/000000/timer.png" onClick={onClick} style={{paddingLeft : "5px", height:"25px", width:"auto", cursor: "pointer"}}/>
-				</div>
+				<ButtonsApp movie={props.data} />
 			</Card.Content>
 		</Card>
 	);

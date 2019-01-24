@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
     case LOGGED_OUT:
       newState.loggedIn = false;
       newState.name = '';
-      return initialState;
+      return newState;
     case ADD_FAVORITE:
       newState.favorites = [...newState.favorites, action.data]
       return newState;
