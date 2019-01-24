@@ -106,7 +106,7 @@ class NavigationBar extends Component {
       background: "linear-gradient(to left, rgba(24, 24, 24, 0.9 ), rgba(0,0,0,1))"
     }
 
-    const divStyle= {
+    const divStyle = {
       position: "sticky",
       top: "0px",
       zIndex: "1"
