@@ -8,4 +8,7 @@ const User = UserModel(db, Sequelize);
 
 // db.sync().then(() => console.log('Tables Synced')).catch(err => console.error(err));
 
-module.exports = {User, db}
+module.exports = {
+  User,
+  db
+}

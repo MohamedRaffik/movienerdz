@@ -23,7 +23,6 @@ const ImageSlide = (props) => {
   const releaseDate = props.data.release_date;
   const title = props.data.name ? props.data.name : props.data.title;
   const rating = props.data.vote_average;
-
   const { overview, release_date, backdrop_path, vote_average } = props.data;
 
   const formatDate = (date) => {
@@ -56,7 +55,7 @@ class MovieSwipe extends Component {
     this.state = {
       index: 0
     };
-    this.interval= 0;
+    this.interval = 0;
   }
 
   //Set tick interval for slides
@@ -69,7 +68,7 @@ class MovieSwipe extends Component {
     const index = this.state.index === 0 ? playing_now.length - 1 : this.state.index - 1;
     this.setState({ index: index });
     clearInterval(this.interval);
-    this.interval=setInterval(() => this.NextSlide(), 4000);
+    this.interval = setInterval(() => this.NextSlide(), 4000);
   }
 
   NextSlide = () => {
@@ -77,7 +76,7 @@ class MovieSwipe extends Component {
     const index = this.state.index === playing_now.length - 1 ? 0 : this.state.index + 1;
     this.setState({ index: index });
     clearInterval(this.interval);
-    this.interval=setInterval(() => this.NextSlide(), 4000);
+    this.interval = setInterval(() => this.NextSlide(), 4000);
   }
 
   render() {
