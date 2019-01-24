@@ -44,7 +44,6 @@ class NavigationBar extends Component {
         [POPULAR, 'popular'],
       ];
       let feed;
-      console.log(filter);
       feeds.forEach((element) => feed = (element[0] === filter) ? element[1] : feed);
       axios.get(`/api/moviedata/${feed}/1`)
         .then(res => onUpdateFeed(filter, res.data))

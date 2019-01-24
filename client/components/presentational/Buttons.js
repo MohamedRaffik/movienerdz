@@ -68,7 +68,6 @@ class Buttons extends Component {
 
   render() {
     const { isFavorited, isWatchLater } = this.state;
-    console.log(isFavorited, isWatchLater);
     const heartStyle = {
       height: "25px",
       width: "auto",
