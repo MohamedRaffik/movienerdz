@@ -38,7 +38,7 @@ class MovieModal extends Component {
 
   render() {
 
-    const { title, overview, vote_average, release_date, backdrop_path } = this.props;
+    const { title, overview, vote_average, release_date, backdrop_path, loggedIn } = this.props;
 
     const buttonStyle = {
       left: 0,
@@ -47,7 +47,6 @@ class MovieModal extends Component {
       paddingLeft: "20px"
     }
 
-    console.log(this.props);
     return (
       <Modal id="modal" size="small" onOpen={this.modalStateChange} onClose={this.modalStateChange} trigger={<Button id="info-button" style={{ color: "white", fontWeight: "bold", borderRadius: "20px" }}>More Info</Button>}>
         <Modal.Header id="movie-title">
@@ -65,7 +64,7 @@ class MovieModal extends Component {
         </Header>
         <Modal.Description style={{ paddingBottom: "35px" }}>
           <p id="overview">{overview}</p>
-          <ButtonsApp style={buttonStyle} movie={this.props} />
+          {loggedIn ? <ButtonsApp style={buttonStyle} isFavorited={this.props.isFavorited} isWatchLater={this.props.isWatchLater} movie={this.props} /> : null}
         </Modal.Description>
       </Modal>
     );

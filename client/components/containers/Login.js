@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Header, Grid, Dropdown, Segment, Message } from 'semantic-ui-react';
 import { FILTER_ACTIONS } from '../../actions';
-const { WATCH_LATER, FAVORITES } = FILTER_ACTIONS;
+const { WATCH_LATER, FAVORITES, TRENDING } = FILTER_ACTIONS;
 import axios from 'axios';
 
 class Login extends Component {
@@ -32,13 +32,15 @@ class Login extends Component {
 
   ChangeFeed = (filter) => {
     const { onChangeFilter } = this.props;
-    onChangeFilter(filter)
+    onChangeFilter(filter);
   }
 
   LogOut = () => {
-    const { onLoggedOut } = this.props;
+    const { onLoggedOut, onChangeFilter, filter } = this.props;
     onLoggedOut();
-    this.setState({ open: false });
+    this.setState({ open: false }, () => {
+      if (filter === WATCH_LATER || filter === FAVORITES) onChangeFilter(TRENDING);
+    });
   }
 
   Login = () => {
@@ -54,7 +56,6 @@ class Login extends Component {
           onLoggedIn(data.username, (data.watch_later) ? data.watch_later : [], (data.favorites) ? data.favorites : []);
         })
         .catch(err => {
-          // for (let i in err) console.log(i, err[i])
           const { message } = err.response.data;
           if (message.foundUser === false) this.setState({ userNotFound: true })
           else if (message.validPassword === false) this.setState({ wrongPass: true })

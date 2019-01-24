@@ -37,9 +37,8 @@ class NavigationBar extends Component {
 
   ChangeFilter = (event, element) => {
     const { filter, onUpdateFeed } = this.props;
-    if (filter !== SEARCH || filter != WATCH_LATER || filter != FAVORITES) {
+    if (filter !== SEARCH && filter !== WATCH_LATER && filter !== FAVORITES && filter != TRENDING) {
       const feeds = [
-        [TRENDING, 'trending'],
         [UPCOMING, 'upcoming'],
         [TOP_RATED, 'top_rated'],
         [POPULAR, 'popular'],

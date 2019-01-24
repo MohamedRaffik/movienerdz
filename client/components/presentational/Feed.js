@@ -16,6 +16,8 @@ const Feed = (props) => {
 	else if (filter === POPULAR) feed = props.popular;
 	else if (filter === TOP_RATED) feed = props.top_rated;
 	else if (filter === SEARCH) feed = props.search;
+	else if (filter === WATCH_LATER) feed = props.watch_later;
+	else if (filter === FAVORITES) feed = props.favorites;
 
 	const default_state = { page: 0, total_pages: 0, data: feed }
 	const { page, total_pages, data } = (feed.data) ? feed : default_state;
