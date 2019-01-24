@@ -1,6 +1,9 @@
 const Router = require('express').Router();
-const MovieData = require('./MovieData');
 
-Router.use('/moviedata', MovieData);
-
-module.exports = Router;
+module.exports = (passport) => {
+  const MovieData = require('./MovieData');
+  const Auth = require('./user')(passport);
+  Router.use('/moviedata', MovieData);
+  Router.use('/auth', Auth);
+  return Router;
+}
