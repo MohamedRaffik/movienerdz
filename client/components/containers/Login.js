@@ -37,10 +37,14 @@ class Login extends Component {
 
   LogOut = () => {
     const { onLoggedOut, onChangeFilter, filter } = this.props;
-    onLoggedOut();
-    this.setState({ open: false }, () => {
-      if (filter === WATCH_LATER || filter === FAVORITES) onChangeFilter(TRENDING);
-    });
+    axios.get('/api/auth/logout')
+      .then(res => {
+        onLoggedOut();
+        this.setState({ open: false }, () => {
+          if (filter === WATCH_LATER || filter === FAVORITES) onChangeFilter(TRENDING);
+        });    
+      })
+      .catch(err => {});
   }
 
   Login = () => {
