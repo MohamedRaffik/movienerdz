@@ -24,5 +24,12 @@ module.exports = (passport) => {
 		})(req, res, next);
 	});
 
+	router.get('/', function (req, res, next) {
+		if (req.user) {
+			return res.status(200).json({ username: req.user.username, favorites: req.user.favorites || [], watchLater: req.user.watchLater || [] });
+		}
+		return res.status(400).json({ error: 'User not authenticated' });
+	})
+
 	return router;
 }

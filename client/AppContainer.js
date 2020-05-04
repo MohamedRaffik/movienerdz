@@ -20,7 +20,7 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    const { onUpdateFeed } = this.props;
+    const { onUpdateFeed, onLoggedIn } = this.props;
     const feeds = [
       [PLAYING_NOW, 'now_playing'],
       [TRENDING, 'trending'],
@@ -36,6 +36,10 @@ class AppContainer extends Component {
         .then(res => onUpdateFeed(action, res.data))
         .catch(err => console.error(err));
     }
+
+    axios.get('/api/auth')
+      .then(res => onLoggedIn(res.data.username, res.data.watchLater, res.data.favorites))
+      .catch(err => console.error(err)); 
   }
 
   render() {

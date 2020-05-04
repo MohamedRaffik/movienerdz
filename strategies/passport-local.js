@@ -1,11 +1,22 @@
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/index').User;
-
+const bcrypt = require('bcrypt');
 
 function signupStrategy(passport) {
 
 	passport.serializeUser(function (user, done) {
 		done(null, user.id);
+	});
+
+	passport.deserializeUser(function (id, done) {
+		User.findOne({ 
+			where: { 'id': id },
+			attributes: ['id', 'password', 'username', 'favorites', 'watchLater']
+		}).then(function (user) {
+			done(false, user);
+		}).catch(function (err) {
+			done(err, null);
+		})
 	});
 
 	passport.use('local-signup', new LocalStrategy({
@@ -32,8 +43,7 @@ function processLoginCallback(req, username, password, done) {
 			return done(null, false, { foundUser: false })
 		}
 
-		if (user.password !== password) {
-
+		if (!bcrypt.compareSync(password, user.password)) {
 			return done(null, false, { validPassword: false })
 		}
 
@@ -58,6 +68,7 @@ function processSignupCallback(req, username, password, done) {
 		} else {
 
 			var userToCreate = req.body;
+			userToCreate.password = bcrypt.hashSync(userToCreate.password, 10);
 			User.create(userToCreate).then(function (createdRecord) {
 				createdRecord.password = "you can't see me!";
 				console.log("created new user");
