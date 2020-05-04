@@ -39,7 +39,7 @@ class AppContainer extends Component {
 
     axios.get('/api/auth')
       .then(res => onLoggedIn(res.data.username, res.data.watchLater, res.data.favorites))
-      .catch(err => {}); 
+      .catch(err => { });
   }
 
   render() {
