@@ -18,7 +18,7 @@ app.use(session({
   store: new redisStore({ client: redisClient }),
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV !== 'development' }
+  cookie: { httpOnly: true }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
