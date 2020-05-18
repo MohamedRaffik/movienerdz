@@ -4,7 +4,6 @@ const app = express();
 const PATH_DIR = process.env.NODE_ENV === 'production' ? 'build' : 'public';
 const passport = require('passport');
 const { db } = require('./models/index');
-const strategy = require('./strategies/passport-local').signupStrategy(passport);
 const api = require('./routes/index')(passport)
 const port = process.env.PORT || 3000;
 const session = require('express-session');

@@ -20,14 +20,13 @@ class Login extends Component {
       loginPass: '',
       signupUser: '',
       signupPass: '',
-      userExists: false,
-      userNotFound: false,
-      wrongPass: false
+      signupError: '',
+      loginError: ''
     }
   }
 
   ChangePopup = () => {
-    this.setState({ open: !this.state.open, userExists: false, userNotFound: false, wrongPass: false });
+    this.setState({ open: !this.state.open, loginError: '', signupError: '' });
   }
 
   ChangeFeed = (filter) => {
@@ -48,7 +47,7 @@ class Login extends Component {
   }
 
   Login = () => {
-    this.setState({ userExists: false, userNotFound: false, wrongPass: false }, () => {
+    this.setState({ loginError: '', signupError: '' }, () => {
       const { loginPass, loginUser } = this.state;
       axios.post('/api/auth/login', {
         username: loginUser,
@@ -61,8 +60,9 @@ class Login extends Component {
         })
         .catch(err => {
           const { message } = err.response.data;
-          if (message.foundUser === false) this.setState({ userNotFound: true })
-          else if (message.validPassword === false) this.setState({ wrongPass: true })
+          if (message.foundUser === false) this.setState({ loginError: 'Username does not exist' })
+          else if (message.validPassword === false) this.setState({ loginError: 'Invalid Password' })
+          else { this.setState({ loginError: message }) }
         });
     });
   }
@@ -70,6 +70,12 @@ class Login extends Component {
   SignUp = () => {
     this.setState({ userExists: false, userNotFound: false, wrongPass: false }, () => {
       const { signupPass, signupUser } = this.state;
+      if (signupUser === '') {
+        this.setState({ signupError: 'Username must not be blank' });
+      } else if (signupPass.length < 8) {
+        this.setState({ signupError: 'Password must be greater than 8 characters' });
+        return;
+      }
       axios.post('/api/auth/signup', {
         username: signupUser,
         password: signupPass
@@ -81,7 +87,7 @@ class Login extends Component {
         })
         .catch(err => {
           const { message } = err.response.data;
-          if (message.usernameExists) this.setState({ userExists: true })
+          if (message.usernameExists) this.setState({ signupError: 'Username is Taken' })
         });
     });
   }
@@ -92,7 +98,7 @@ class Login extends Component {
       "color": "white",
     };
     const { loggedIn, username } = this.props;
-    const { open, userNotFound, userExists, wrongPass } = this.state;
+    const { open, signupError, loginError } = this.state;
 
     const modalStyle = {
       background: "linear-gradient(to top left, rgba(24, 24, 24, 0.7 ), rgba(0,0,0,.4))",
@@ -119,20 +125,19 @@ class Login extends Component {
             <Grid relaxed='very' columns='2' divided={true}>
               <Grid.Column>
                 <Header style={style} as='h1' textAlign='center'>Sign Up</Header>
-                <Form size='huge' style={style} onSubmit={this.SignUp} error={userExists} >
+                <Form size='huge' style={style} onSubmit={this.SignUp} error={Boolean(signupError)} >
+                  {signupError ? <Message error={true} content={signupError} /> : null}
                   <Form.Input label="Username" placeholder="Username" onChange={(event) => this.setState({ signupUser: event.target.value })} />
-                  {userExists ? <Message error={true} content="Username Is Taken" /> : null}
                   <Form.Input label="Password" placeholder="Password" type="password" onChange={(event) => this.setState({ signupPass: event.target.value })} />
                   <Form.Button style={{ color: "black", fontWeight: "bold", borderRadius: "20px", backgroundColor: "white" }}>Sign Up</Form.Button>
                 </Form>
               </Grid.Column>
               <Grid.Column>
                 <Header style={style} as='h1' textAlign='center'>Login</Header>
-                <Form size='huge' style={style} onSubmit={this.Login} error={userNotFound || wrongPass}>
+                <Form size='huge' style={style} onSubmit={this.Login} error={Boolean(loginError)}>
+                  {loginError ? <Message error={true} content={loginError} /> : null}
                   <Form.Input label="Username" placeholder="Username" onChange={(event) => this.setState({ loginUser: event.target.value })} />
-                  {userNotFound ? <Message error={true} content="Username Not Found" /> : null}
                   <Form.Input label="Password" placeholder="Password" type="password" onChange={(event) => this.setState({ loginPass: event.target.value })} />
-                  {wrongPass ? <Message error={true} content="Incorrect Password" /> : null}
                   <Form.Button style={{ color: "black", fontWeight: "bold", borderRadius: "20px", backgroundColor: "white" }}>Login</Form.Button>
                 </Form>
               </Grid.Column>
