@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.3",
+    "bcrypt": "^5.0.0",
     "concurrently": "^4.1.0",
     "connect-redis": "^4.0.4",
     "dotenv": "^6.2.0",
